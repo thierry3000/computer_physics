@@ -1,0 +1,13 @@
+## compile program: -O2 = optimization level; -o = name of program; -lm = link with math library
+## 			-I.. include cairo for plots
+gcc -I/usr/include/cairo -lm -lcairo -o mdbasic -O2 mdbasic.c
+
+## run program, show output and write it to mdbasic.out
+./mdbasic | tee mdbasic.out
+
+## create movie
+mencoder mf://moviedata/*.png -mf w=800:h=600:fps=25:type=png -ovc copy -oac copy -o moviedata/output.avi 
+
+## run movie: -fs fullscreen, quite with "q"
+mplayer -fs moviedata/output.avi
+

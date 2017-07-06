@@ -1,0 +1,118 @@
+\documentclass[english,10pt]{newexam}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{ngerman}
+\usepackage{dsfont}
+\usepackage{bm}
+\setlength\parskip{\medskipamount}
+\setlength\parindent{0pt}
+
+\makeatletter
+\usepackage[ngerman]{babel}
+\makeatother
+\thispagestyle{headandfoot}
+\extraheadheight[1.5cm]{0cm}
+
+\firstpageheadrule
+\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  SS 2017}}
+  {\LARGE  1. \"Ubung - ODE}
+  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+\footrule
+\extrafootheight{-2cm}
+\lfoot{}
+\lfoot{{\bfseries \textsf{Info:}}
+{\tt  http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html}\\}
+\cfoot{}
+\rfoot{\thepage/\numpages}
+%\bracketedpoints 
+\boxedpoints
+%\pointsinrightmargin
+\pointsinmargin
+\pointpoints{Punkt}{Punkte}
+%%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{mycounter}
+\setcounter{mycounter}{0}
+\newcommand{\myTitle}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{\thepoints}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Class}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{PrÃ€senzaufgabe}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Remark}[1]{{\large \textsf{Bemerkung:} }{\small \textsf{#1}}}
+\newcommand{\Hint}[1]{{\large \textsf{Hinweis:} }{\small \textsf{#1}}}
+\newcommand{\Bold}[1]{{\bfseries {#1}}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ket}[1]{\left| {#1}\right\rangle}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\skp}[2]{\langle {#1} | {#2}\rangle}
+\newcommand{\E}[1]{\left\langle {\hat{#1}}\right\rangle}
+\newcommand{\e}[1]{\langle {#1}\rangle}
+\newcommand{\trip}[3]{\langle {#1}|{#2}|{#3}\rangle}
+\newcommand{\Sz}{\hat S_z}
+\newcommand{\Szi}[1]{\hat S_{z #1}}
+\newcommand{\SO}{\hat{\vec{S}}}
+\newcommand{\zus}[1]{\left| #1 \right>}
+%\renewcommand{\theequation}{10.\arabic{equation}}
+\newcommand{\beqs}{\begin{eqnarray}}
+\newcommand{\eeqs}{\end{eqnarray}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\vspace*{-0.5cm}\hrule
+\begin{center} 
+{\bfseries \sf(Abgabe: bis zum \textit{26. April 2017, 16:00 Uhr} \\
+schriftliche Ausarbeitungen im Postfach von Prof.~Rieger, digitale Inhalte per Mail an thierry@lusi.uni-sb.de)}\\[.3cm]
+%{\bfseries \sf (Ihre L\"osung ist am \sl{31.10.2012, 14.15 Uhr} im Cip-Pool abzugeben. \sf)}\\[.3cm]
+\end{center}
+
+\begin{questions}
+
+
+\vspace{0.3cm}
+
+\myTitle{Runge-Kutta}
+\question[6]
+Während der Präsenzübung haben Sie das Programm ode.py kennen gelernt, dass die gewöhnlichen Differnetialgleichungen 
+\begin{eqnarray}
+ \dot u &=& \phantom{-} r u - p u v\nonumber\\
+ \dot v &=& - s v + q u v \label{ode1}
+\end{eqnarray}
+$(r,s,p,q>0)$ mithilfe der SciPy- Routine ``odeint'' löst.
+\begin{parts}
+ \part\label{Ellipse}
+\begin{subparts}
+\subpart Zeigen Sie analytisch, dass für alle Trajektorien $u(t)$ und $v(t)$, die Gleichung \eqref{ode1} erfüllen, auch 
+  $$ V(u(t),v(t))=q H(u) + p G(v)=konstant$$
+ mit $ H(u)=u_s \log u - u$ und  $G(v)=v_s \log v - v$ gilt.
+\subpart Zeigen Sie schließlich analytisch, dass die Trajektorien im Phasenraum ($u(t),v(t)$) in der Nähe des Fixpuntes $(u_s=\frac{s}{q}, v_s=\frac{r}{p})$ die Ellipsengleichung $$\frac{\bar u^2}{A}+\frac{\bar v^2}{B}=1$$ erfüllen und begründen Sie warum $A, B$ positiv sind. Verwenden Sie die Koordinaten\\$(u=\bar u+u_s, v=\bar v+v_s)$ und die Entwicklung $\log\left(1+x\right)\approx x - \frac{x^2}{2}$.
+\end{subparts}
+ \part Fügen Sie nun an der vorbereiteten Stelle das Euler-Verfahren zum Lösen allgemeiner Gleichungen ein. Fügen Sie die Bewegungsgleichungen in der Funktion \texttt{equationODE} ein und \textbf{nicht explizit} in die Funktion \texttt{Euler}.
+ \part Fügen Sie nun an der vorbereiteten Stelle das Runge-Kutta-Verfahren 4. Stufe ein. Benutzen Sie die Bewegungsgleichungen aus der Funktion \texttt{equationODE} und fügen Sie sie \textbf{nicht explizit} in die Funktion \texttt{rk} ein.
+ \part Vergleichen Sie die Lösungen des Euler-Verfahrens und des Runge-Kutta-Verfahrens in der Nähe des elliptischen Fixpunktes mit dem Ergebnis aus (\ref{Ellipse}). Wählen Sie hierfür verschiedene Startwerte und variieren Sie die Größe des Zeitschrittes. Welche Größenordnung sollte man für die Größe der Zeitschritte mindestens für die drei verschiedenen Methoden (odeint, Euler und Runge-Kutta) wählen?
+\end{parts}
+
+\myTitle{Hopf-Bifurkation}
+\question[4]
+Nun betrachten wir ein erweitertes Volterra-Lotka Model:
+\begin{eqnarray}
+ \dot u &=&  r u ( 1 - u ) - \frac{p u v}{1 + m u} \nonumber\\
+ \dot v &=& - s v + \frac{q u v}{1 + m u} \label{ode2}
+\end{eqnarray}
+$(r,s,p,q,m>0)$
+\begin{parts}
+ \part Bestimmen Sie analytisch alle stationären Punkte des Systems.
+ \part Setzten Sie $p=q=5, s=1/2, r=1$ und untersuchen Sie nun die stationären Punkte analytisch. Bestimmen Sie deren Art für $m=1$ und $m=2$.
+ \part Implementieren Sie die Gleichungen \eqref{ode2} für allgemeine Parameter in der Funktion \texttt{GleichungODE}, um Sie mithilfe ihres Runge-Kutta-Algorithmuses zu lösen.
+ \part Setzen Sie von nun $p=q=5, s=1/2, r=1$. Untersuchen Sie numerisch das Verhalten des Systems im Phasenraum ($x(t),y(t)$) in Abhängigkeit von $m$. Veranschaulichen Sie die Hopf-Bifurkation mithilfe von zwei Bildern des Phasenraums und erläutern Sie.
+\end{parts}
+
+\end{questions}
+Weitere Infos finden Sie unter: http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html
+\\
+Bei Fragen E-Mail an: thierry@lusi.uni-sb.de 
+\end{document}
+
+
+

@@ -1,0 +1,136 @@
+\documentclass[english,10pt]{exam}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{ngerman}
+\usepackage{dsfont}
+\usepackage{bm}
+\usepackage{amsthm}
+\usepackage{amsopn}
+\usepackage{bbm}
+
+\setlength\parskip{\medskipamount}
+\setlength\parindent{0pt}
+
+\makeatletter
+\usepackage[ngerman]{babel}
+\makeatother
+\thispagestyle{headandfoot}
+\extraheadheight[1.5cm]{0cm}
+
+\firstpageheadrule
+\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  SS 2017}}
+  {\LARGE  5. \"Ubung}
+  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+\footrule
+\extrafootheight{-2cm}
+\lfoot{}
+\lfoot{{\bfseries \textsf{Info:}}
+{\tt  http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html}\\}
+\cfoot{}
+\rfoot{\thepage/\numpages}
+%\bracketedpoints 
+\boxedpoints
+%\pointsinrightmargin
+\pointsinmargin
+\pointpoints{Punkt}{Punkte}
+%%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{mycounter}
+\setcounter{mycounter}{0}
+\newcommand{\myTitle}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{\thepoints}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Class}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{PrÃ€senzaufgabe}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Remark}[1]{{\large \textsf{Bemerkung:} }{\small \textsf{#1}}}
+\newcommand{\Hint}[1]{{\large \textsf{Hinweis:} }{\small \textsf{#1}}}
+\newcommand{\Bold}[1]{{\bfseries {#1}}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ket}[1]{\left| {#1}\right\rangle}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\skp}[2]{\langle {#1} | {#2}\rangle}
+\newcommand{\E}[1]{\left\langle {\hat{#1}}\right\rangle}
+\newcommand{\e}[1]{\langle {#1}\rangle}
+\newcommand{\trip}[3]{\langle {#1}|{#2}|{#3}\rangle}
+\newcommand{\Sz}{\hat S_z}
+\newcommand{\Szi}[1]{\hat S_{z #1}}
+\newcommand{\SO}{\hat{\vec{S}}}
+\newcommand{\zus}[1]{\left| #1 \right>}
+%\renewcommand{\theequation}{10.\arabic{equation}}
+\newcommand{\beqs}{\begin{eqnarray}}
+\newcommand{\eeqs}{\end{eqnarray}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\vspace*{-0.5cm}\hrule
+\begin{center} 
+{\bfseries \sf(Abgabe: bis zum \textit{7. Juni 2017, 16:00 Uhr}.
+Quellcode, Filme und Bilder bitte in ``/home/comphys/comphys\_ss17\_Abgabe/'' im Cip Pool ablegen.
+Der schriftliche Teil kann entweder als Pdf beigelegt oder im Postfach von Prof.~Rieger abgegeben werden.
+\\
+Unter ``/home/comphys/comphys\_ss17/exercises\_supplemental/`` finden sie die jeweilig Dateien, die 
+f\"ur die Bearbeitung hilfreich sind.}\\[.3cm]
+\end{center}
+
+\begin{questions}
+
+
+\vspace{0.3cm}
+
+
+\myTitle{Lennard-Jones Potential mit Gravitation}
+\question[5]
+Öffnen Sie die Datei "LJ\_basic.cpp". Dort finden Sie eine Implementierung des Metropolisalgorithmus für das Lennard-Jones-Potential mit Gravitation:
+\begin{eqnarray}
+H\left( \left\lbrace \vec{x_i} \right\rbrace \right)=\sum^N_{i=1} mg \vec{x_i}\cdot\vec{e_y}\;+\sum^N_{i=1} \sum^N_{j=i+1} 4\epsilon \left( \left(\frac{\sigma}{|\vec{x_i}-\vec{x_j}|}\right)^{12} -\left(\frac{\sigma}{|\vec{x_i}-\vec{x_j}|}\right)^{6} \right) 
+\end{eqnarray}
+\begin{parts}
+\part Die Funktion "zustand Metropolis\_step(zustand z)" evaluiert die Energien des Kandidatenzustandes, sowie die Energie des aktuellen Zustandes komplett, um daraus die Energiedifferenz zu bestimmen. Daher skaliert diese Art der Implementierung quadratisch mit der Teilchenzahl. Ersetzen Sie "(H(z\_neu)-H(z))" durch eine Funktion "zustand dE", welche linearer mit der Teilchenzahl skaliert.  
+\part Implementieren Sie periodische Randbedingungen für den linken und rechten Rand, indem Sie die Funktionen "double d2(const vektor2d \& v1, const vektor2d \& v2)" und "zustand Zustandwuerfeln(zustand z,int \& nr)" dementsprechend modifizieren.
+\part Überprüfen Sie die Korrektheit Ihrer bisherigen Modifikationen, indem Sie für den Speziallfall reiner Gravitation die Übereinstimmung mit der barometrischen Höhenformel nachweisen. Heben Sie dazu die Höhenbeschränkung des y-Wertes auf und schreiben Sie eine Funktion "void Dichte", welche ein Dichtehistogramm der Teilchen in y-Richtung berechnet. Samplen Sie für verschiedene Temperaturen, Teilchenzahlen und Teilchenmassen Datensätze und prüfen Sie anschließend mittels Fitten, ob der erwartete exponentielle Abfall beobachtet wird. Achten Sie dabei darauf, dass Sie dem System genug Zeit zum "Einschwingen" geben, um den Einfluss des Startpunktes im Phasenraum auszulöschen.
+\part Schalten Sie nun das Lennard-Jones Potential dazu. Im Falle sehr kleiner Teilchendichten (pro x-Längeneinheit), d.h. großer mittlerer Teilchenabstände (gegenüber $\sigma$), sollten sich obige Dichteverteilungen nicht ändern. Überprüfen Sie dies.\\
+Erhöhen sie anschließend in mehreren Schritten die Teilchendichte und variieren Sie jeweils $\sigma$ und die Temperatur über mehrere Größenordnungen, um den Einfluss systematisch zu untersuchen. 
+\part Betrachten Sie abschließend ein System ohne Gravitation mit periodischen Randbedingungen an allen Kanten. $\rho(r) dr$ bezeichne die mittlere Anzahl an Atomen, welche sich im Abstandsintervall $[r,r+dr]$ befinden. Samplen Sie diese Dichte für eine sehr hohe und äußerst kleine Temperaturen im Falle großer und kleiner Teilchendichten. Lassen sich aus dem Verlauf von $\rho(r)$ für sehr kleine Temperaturen Aussagen über die Kristallstruktur des Grundzustandes machen?   
+\end{parts}
+
+\myTitle{Ising-Modell}
+\question[5]
+Öffnen Sie die Datei "IS.cpp". Dort finden Sie eine Implementierung des Metropolisalgorithmus für das zweidimensionale Ising-Modell:
+\begin{eqnarray}
+H=-J\sum_{<i,j>}\sigma_i \cdot \sigma_j
+\end{eqnarray}
+\begin{parts}
+\part Schreiben Sie eine Routine ''int magnetization\_better'', 
+welche die Magnetisierung $m$ eines Phasenraumzustandes $z$ 
+möglichst effektiv berechnet, falls man die Magnetisierung 
+$m_{alt}$ des Vorgängerzustandes $z_{alt}$ kennt.    
+\part Samplen Sie den Mittelwert des Betrages der Magnetisierung 
+als Funktion von $\frac{\beta}{J}=0.2,\,0.22,\,0.24,\,...1$ für 
+ein $8\times8$, ein $16\times16$ und ein $32\times 32$ Gitter 
+und tragen Sie alle drei Funktionen in ein gemeinsames Koordinatensystem auf. 
+Der entstehende Plot sollte einen Phasenübergang zwischen einem ferromagnetischen 
+und einem paramagnetischen Zustand bei $\beta_c\approx0.44$ für ein unendlich ausgedehntes 
+System aufzeigen. Beachten Sie auch hier für ihre Simulationen eine gewisse "Einschwingzeit" 
+und eine ausreichende Samplezahl.  
+
+\part Der größte Nachteil des hier vorgestellten 
+Algorithmus ist es, dass seine Effizienz sehr stark von dem Wert $\beta$ abhängt.
+Dies sollen Sie sich an folgendem Beispiel verdeutlichen: 
+Samplen Sie den Erwartungswert der Magnetisierung eines $16\times 16$ Gitters 
+einmal für $\beta_1=1$ und einmal für $\beta_2=0.1$ mit je 50000 Samples. 
+Vergleichen Sie mit dem analytischen Wert und begründen Sie die Abweichung für $\beta_1$.
+\end{parts}
+Anmerkung: Das im letzten Aufgabenteil angesprochene 
+Problem läst sich mit sogenannten Clusteralgorithmen vermeiden. 
+Diese erlauben es innerhalb eines Markovschrittes Phasenraumpunkte zu erreichen, 
+welche sich um mehr als einen Spin unterscheiden. 
+
+\end{questions}   
+Infos und aktuelle \"Ubungsbl\"atter finden Sie unter: http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html
+Bei Fragen E-Mail an: thierry@lusi.uni-sb.de 
+\end{document}
+
+
+

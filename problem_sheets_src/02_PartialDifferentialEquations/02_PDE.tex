@@ -1,0 +1,174 @@
+\documentclass[english,10pt]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+%\usepackage{dsfont}
+\usepackage{bm}
+\setlength\parskip{\medskipamount}
+\setlength\parindent{0pt}
+
+\makeatletter
+\makeatother
+\thispagestyle{headandfoot}
+\extraheadheight[1.5cm]{0cm}
+
+\firstpageheadrule
+\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  SS 2017}}
+  {\LARGE  2. \"Ubung}
+  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+\footrule
+\extrafootheight{-2cm}
+\lfoot{}
+\lfoot{{\bfseries \textsf{Info:}}
+{\tt  http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html}\\}
+\cfoot{}
+\rfoot{\thepage/\numpages}
+%\bracketedpoints 
+\boxedpoints
+%\pointsinrightmargin
+\pointsinmargin
+\pointpoints{Punkt}{Punkte}
+%%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{mycounter}
+\setcounter{mycounter}{0}
+\newcommand{\myTitle}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{\thepoints}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Class}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{PrÃ€senzaufgabe}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Remark}[1]{{\large \textsf{Bemerkung:} }{\small \textsf{#1}}}
+\newcommand{\Hint}[1]{{\large \textsf{Hinweis:} }{\small \textsf{#1}}}
+\newcommand{\Bold}[1]{{\bfseries {#1}}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ket}[1]{\left| {#1}\right\rangle}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\skp}[2]{\langle {#1} | {#2}\rangle}
+\newcommand{\E}[1]{\left\langle {\hat{#1}}\right\rangle}
+\newcommand{\e}[1]{\langle {#1}\rangle}
+\newcommand{\trip}[3]{\langle {#1}|{#2}|{#3}\rangle}
+\newcommand{\Sz}{\hat S_z}
+\newcommand{\Szi}[1]{\hat S_{z #1}}
+\newcommand{\SO}{\hat{\vec{S}}}
+\newcommand{\zus}[1]{\left| #1 \right>}
+%\renewcommand{\theequation}{10.\arabic{equation}}
+\newcommand{\beqs}{\begin{eqnarray}}
+\newcommand{\eeqs}{\end{eqnarray}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\vspace*{-0.5cm}\hrule
+\begin{center} 
+{\bfseries \sf(Abgabe: bis zum \textit{3. Mai 2017, 16:00 Uhr}.
+Quellcode, Filme und Bilder bitte in ``/home/comphys/comphys\_ss17\_Abgabe/'' im Cip Pool ablegen.
+Der schriftliche Teil kann entweder als Pdf beigelegt oder im Postfach von Prof.~Rieger abgegeben werden.
+\\
+Unter ``/home/comphys/comphys\_ss17/exercises\_supplemental/`` finden sie die jeweilig Dateien, die 
+f\"ur die Bearbeitung hilfreich sind.}\\[.3cm]
+\end{center}
+
+Ziel dieser Übung ist es eine numerische Lösung einer Variante des Räuber-Beute Modells zu berechnen.
+Das betrachtete Modell beinhaltet nun eine Ortsabhängigkeit der Räuber-und
+Beutekonzentration, genannt  $v(x, y, t)$ bzw. $u(x, y, t)$ in zwei Dimensionen, wobei $x$ und $y$ die beiden Ortskoordinaten
+bzeichnen. Die zeitliche Entwicklung wird durch das folgende
+Differentialgleichungssystem beschrieben:
+\begin{eqnarray}
+\label{eqn:rb}
+\frac{\partial u}{\partial t} &=& \delta_1 \Delta u + r u \left(1 - \frac{u}{w} \right) - p v \Psi(k u) \\
+\frac{\partial v}{\partial t} &=& \delta_2 \Delta v + q v \Psi(k u) - s v \notag \\
+\Psi &:=& \eta \mapsto \tfrac{\eta}{1+\eta} \notag\text{,}
+\end{eqnarray}
+wobei $\delta_1, \delta_2, r, p, k, q, s$ positive Modellparameter sind und 
+$\Delta$ den Laplace Operator bezeichnet $\Delta = 
+\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}$. Wir wollen 
+die Gleichung auf einem quadratischen Gebiet $\Omega = [0, L]^2$ der Seitenlänge 
+$L$ lösen. Um die Definition des Systems zu vervollständigen wählen wir 
+Neumannsche Randbedingungen: $\partial u/\partial {\bf n} = \partial v/\partial 
+{\bf n} = 0$, wobei ${\bf n}$ den Normalenvektor am Rand des Simulationsgebietes 
+bezeichnet.
+
+Zur numerischen Lösung diskretisieren wir das Simulationsgebiet durch ein regelmäßiges Gitter mit
+Gitterkonstante $h$. Das bedeutet, eine Funktion $f(x, y)$ ist durch ihre Werte an den Gitterplätzen
+$f(i h, j h) = f_{i,j}$ eindeutig bestimmt, wobei $i,j = 0\ ..\ L/h$. Es läßt sich zeigen, daß die
+Anwendung des Laplace Operators folgendermaßen approximiert werden kann:
+\begin{equation}
+\label{eqn:dlaplacian}
+(\Delta f)_{i,j} \approx (\Delta_h f)_{i,j} = \frac{1}{h^2} [ -4 f_{i,j} + f_{i-1,j} + f_{i,j-1} + f_{i+1,j} + f_{i,j+1} ]\text{,}
+\end{equation}
+wobei $\Delta_h$ den diskreten Laplace Operator bezeichnet.
+Die Randbedingungen benötigen dabei spezielle Behandlung. Betrachten wir zunächst den linken Rand, und
+stellen uns vor es existieren noch Gitterpunkte für $i = -1$. Wegen der Randbedingung, gilt dann an
+jedem Platz $(0,j)$: $\partial f/\partial x \approx (f_{0,j} - f_{-1,j})/h^2 = 0$. Damit läßt sich
+der Funktionswert an dem gedachten Punkt $f_{-1,j}$, sowie ein $f_{i,j}$ aus GL. (\ref{eqn:dlaplacian})
+eleminieren. Analoges gilt für die anderen Ränder.
+
+Die Zeit diskretisieren wir in konstante Schritte der Länge $\tau$ und schreiben
+für eine Funktion der Zeit am $n$-ten Zeitschritt $f(n \tau) = f^n$. Die zeitliche Ableitung diskretisieren
+wir mit der Eulermethode. Sei $\partial f/\partial t = F[f]$ eine Differentialgleichung
+mit dem Operator $F$. Dann wird $f^{n+1}$ gegeben durch
+\begin{equation}
+\label{eqn:dtime}
+\frac{f^{n+1} - f^{n}}{\tau} = F[f^{n}]
+\end{equation}
+% Die Bedeutung von explizit ist, daß nur Werte von bereits vergangenen Zeitschritten auf der rechten Seite
+% von GL. (\ref{eqn:dtime}) auftauchen. Bei impliziten Verfahren führt man stattdessen formal den zu berechnenden
+% Zeitpunkt auf der rechten Seite ein: $F[f^{n+1}]$, was auf die Lösung eines linearen oder nicht-linearen Gleichungssytems hinausläuft.
+
+% Für die meisten sog. expliziten Verfahren existieren Stabilitätskriterien, die die Länge des Zeitschrittes
+% $\tau$ bei gegebenen anderen Parametern beschränken. Es lässt sich zeigen, daß für ein Reaktions-Diffusions
+% System wie GL. (\ref{eqn:rb}) gelten muss:
+% \begin{equation}
+% \label{eqn:stab}
+% \frac{D d 2 \tau}{h^2} < 1, \text{,}
+% \end{equation}
+% mit der Diffusionskonstante $D$ und Raumdimension $d$.
+
+Der Zeitschritt für das diskretisierte Räuber-Beute System (\ref{eqn:rb}) sieht also folgendermaßen aus:
+\begin{eqnarray}
+\label{eqn:drb}
+u_{i,j}^{n+1}  &=& u_{i,j}^n + \tau \left[ \delta_1 (\Delta_h u^n)_{i,j} + r u^n_{i,j} \left(1 - \frac{u^n_{i,j}}{w} \right) - p v^n_{i,j} \Psi(k u^n_{i,j}) \right] \\
+v_{i,j}^{n+1}  &=& v_{i,j}^n + \tau \left[ \delta_2 (\Delta_h v^n)_{i,j} + q v^n_{i,j} \Psi(k u^n_{i,j}) - s v^n_{i,j} \right] \notag 
+\end{eqnarray}
+
+\clearpage
+
+\begin{questions}
+\vspace{0.3cm}
+
+% \myTitle{Ein bisschen Theorie}
+% \question[2]
+% Leiten sie mit Hilfe der Taylorentwicklung die Approximation des Laplace Operators in 1d
+% $\Delta f = \frac{1}{h^2}(- 2 f_i + f_{i-1} + f_{i+1})$ her und bestimmen sie die Ordnung des
+% Fehlers in $h$.
+\myTitle{Ein bischen Theorie}
+\question[3]
+\begin{parts}
+\part Leiten Sie mit Hilfe der Taylorentwicklung die Approximation des Laplace Operators 
+in einer Dimension her: 
+$\Delta f \approx \frac{1}{h^2}(- 2 f_i + f_{i-1} + f_{i+1})$ und bestimmen sie die Ordnung des
+Fehlers in $h$.
+\part Geben sie eine plausible Erklärung (oder Beweis wenn Sie wollen) für das Stabilitätskriterium
+$\frac{2 D \tau}{h^2}\leq 1$ an. Hinweis: negative Konzentrationswerte sind physikalisch unsinnig.
+\end{parts}
+
+\myTitle{Programmierung: Finite Differenzen und Euler Verfahren}
+\question[6]
+Implementieren Sie die Zeitintegration wie in GL. (\ref{eqn:drb}) angegeben.
+Vervollständigen sie dazu den Rumpf der {\it integrate} Funktion.
+Verwenden sie die Approximation für den Laplace Operator wie in GL. (\ref{eqn:dlaplacian}). 
+
+\myTitle{Nichlineare Dynamik}
+\question[1]
+Ziel dieser Aufgabe ist es, Ihr Program mit Parametern zu testen, die eine interessante Dynamik
+erzeugen. Probieren Sie $\delta_1 (\text{im Code d1}) = \delta_2(\text{im Code d2}) = r = p = w = q = 1, s = 1/2, k = 5, L = 200, \tau = 1/10, h = 1$.
+Erzeugen Sie dann aus den Datendateien eine Bilderserie und daraus wiederum ein Video. Hinweis: Es sollten
+Spiralwellen zu sehen sein.
+\end{questions}
+Infos und aktuelle \"Ubungsbl\"atter finden Sie unter: http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html
+Bei Fragen E-Mail an: thierry@lusi.uni-sb.de
+\end{document}
+
+
+

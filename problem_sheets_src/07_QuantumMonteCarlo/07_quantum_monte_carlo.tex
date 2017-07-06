@@ -1,0 +1,169 @@
+\documentclass[german,10pt,a4paper]{newexam}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{ngerman}
+\usepackage{dsfont}
+\usepackage{bm}
+\setlength\parskip{\medskipamount}
+\setlength\parindent{0pt}
+
+\makeatletter
+\usepackage[ngerman]{babel}
+\makeatother
+\thispagestyle{headandfoot}
+\extraheadheight[1.5cm]{0cm}
+
+\firstpageheadrule
+\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf SS 17}}
+  {\LARGE  7. \"Ubung}
+  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+\footrule
+\extrafootheight{0cm}
+\lfoot{}
+\lfoot{{\bfseries \textsf{Info:}}
+{\tt  http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html}\\}
+\cfoot{}
+\rfoot{\thepage/\numpages}
+%\bracketedpoints 
+\boxedpoints
+%\pointsinrightmargin
+\pointsinmargin
+\pointpoints{Punkt}{Punkte}
+%%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{mycounter}
+\setcounter{mycounter}{0}
+\newcommand{\myTitle}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{\thepoints}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Class}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{Pr\"asenzaufgabe}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Remark}[1]{{\large \textsf{Bemerkung:} }{\small \textsf{#1}}}
+\newcommand{\Hint}[1]{{\large \textsf{Hinweis:} }{\small \textsf{#1}}}
+\newcommand{\Bold}[1]{{\bfseries {#1}}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ket}[1]{\left| {#1}\right\rangle}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\skp}[2]{\langle {#1} | {#2}\rangle}
+\newcommand{\E}[1]{\left\langle {\hat{#1}}\right\rangle}
+\newcommand{\e}[1]{\langle {#1}\rangle}
+\newcommand{\trip}[3]{\langle {#1}|{#2}|{#3}\rangle}
+\newcommand{\Sz}{\hat S_z}
+\newcommand{\Szi}[1]{\hat S_{z #1}}
+\newcommand{\SO}{\hat{\vec{S}}}
+\newcommand{\zus}[1]{\left| #1 \right>}
+%\renewcommand{\theequation}{10.\arabic{equation}}
+\newcommand{\beqs}{\begin{eqnarray}}
+\newcommand{\eeqs}{\end{eqnarray}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\vspace*{-0.5cm}\hrule
+\begin{center} 
+{\bfseries \sf(Abgabe: bis zum \textit{5. Juli 2017, 16:00 Uhr}.
+Quellcode, Filme und Bilder bitte in ``/home/comphys/comphys\_ss17\_Abgabe/'' im Cip Pool ablegen.
+Der schriftliche Teil kann entweder als Pdf beigelegt oder im Postfach von Prof.~Rieger abgegeben werden.
+\\
+Unter ``/home/comphys/comphys\_ss17/exercises\_supplemental/`` finden sie die jeweilig Dateien, die 
+f\"ur die Bearbeitung hilfreich sind.
+}\\[.3cm]
+\end{center}
+\begin{center} 
+
+\Large Quanten-Monte-Carlo Simulation eines eindimensionalen Bose-Hubbard-Modells\\[.3cm]
+\normalsize
+
+\end{center}
+
+
+Die Datei bosehubbard.cpp simuliert ein 
+eindimensionales Bose-Hubbard-Modell mit periodischen Randbedingungen im Grundzustand.
+In der Präsenzübung wird die Implementierung des Algorithmus in der Datei 
+bosehubbard.cpp erläutert. Die wichtigsten Klassen sind:
+	\begin{itemize}
+ 		\item checkerboard: Verwaltung der checkerboard decomposition, 
+ 		Ausführen von QMC-Updates, Ausgabe der aktuellen Konfiguration
+		\item correlationtime: Betrachten der Korrelationen zwischen den einzelnen Samples
+		%\item currentcorrelation: Ausgabe der Pseudo-Strom-Strom-Korrelationsfunktion zur Detektion von Superfluidem und Mott-Isolator Zustand
+		\item matrixelements: Berechnung der Gewichte der Plaquetten
+		\item matrixelements2: Berechnung von Beiträgen der kinetischen Energie der einzelnen Plaquetten
+	\end{itemize}
+
+Der Hamiltonoperator des betrachteten Systems lautet: 
+\begin{equation}
+  H = -t \sum_{<ij>}(a_j^+ a_i + a_i^+ a_j) - \mu \sum_i n_i + V_0 \sum_i n_i(n_i-1)
+\end{equation}
+Die erste Summe läuft dabei nur über nächste Nachbargitterplätze. 
+Wir betrachten im folgenden Systeme mit der inversen Temperatur $\beta = 2$, 
+dem Hoppingparameter $t = 1$ und dem Onsitepotential $V_0 = 20$. 
+Änderungen der Parameter werden explizit angegeben. 
+Die Diskretisierung der Imaginärzeit wählen wir als $\delta \tau = 0.0625$, was 32 Dikretisierungspunkten entspricht.
+Es sollen 16 Gitterplätze betrachtet werden.
+
+\begin{questions}
+
+
+\vspace{0.3cm}
+
+\myTitle{Korrelationszeit}
+\question[1]
+	Lassen Sie sich die Autokorrelationsfunktion für obiges 
+	System mit 16 Bosonen ausgeben. 
+	Bestimmen Sie die Korrelationszeit zwischen unabhängigen Samples.
+
+\myTitle{kinetische Energie pro Gitterplatz}
+\question[2,5]
+	Wir definieren eine Bosonendichte $\rho$ als Quotient aus 
+	Bosonenzahl $N_b$ und der Zahl der Gitterplätze $N$.
+\begin{parts}
+ \part Die Klasse kinetic berechnet die mittlere kinetische Energie 
+ \textbf{eines Samples}. Benutzen Sie die Klasse kinetic um die mittlere kinetische 
+ Energie pro Gitterplatz $E_K$ für Bosonendichten $\rho$ zwischen $0$ und $3.2$ zu berechnen 
+ und plotten Sie $- E_K$ normiert auf das Onsitepotential $V_0$ in Abhängigkeit von $\rho$. \\
+\Hint{Mitteln Sie über eine hinreichend große Anzahl von Monte Carlo Samples.}
+ \part An welchen Stellen finden Sie Minima? Liegt an den Minima ein superfluider oder ein Mott-Isolator Zustand vor? Wie sieht es an Stellen dazwischen aus?
+\end{parts}
+\pagebreak_
+\myTitle{chemisches Potential}
+\question[3]
+	Für $\beta = 2$ können thermische Anregungen vernachlässigt werden 
+	und es ist ausreichend das System im Grundzustand zu betrachten. 
+	Das chemische Potential $\mu$ ergibt sich aus der Ableitung der Grundzustandsenergie 
+	nach der Bosonenzahl. Hier erhalten wir also für das chemische Potential 
+	$\mu = E_{N_b+1} - E_{N_b}$, wobei $E_{N_b}$  die Grundzustandsenergie eines Systems mit $N_b$ Bosonen ist.
+\begin{parts}
+	\part Plotten Sie die Grundzustandsenergie $E_{N_b}$ 
+	des Systems in Abhängigkeit von der Bosonendichte $\rho$. 
+	Was fällt bei dem Plot auf ?
+	\part Berechnen Sie nun das chemische Potential $\mu$ 
+	und plotten Sie dieses dann wieder in Abhängigkeit von der 
+	Bosonenzahldichte $\rho$. Wie äußert sich das Verhalten aus Teil a) in diesem Plot ?
+\end{parts}
+
+\myTitle{Phasendiagramm}
+\question[3,5]
+
+In dieser Aufgabe sollen Sie nun das Phasendiagramm für den Phasenübergang 
+vom Mott-Isolator zum superfluiden Zustand bestimmen. 
+Im Phasendiagramm plotten Sie das chemische Potential $\mu$, 
+welches mit dem Onsitepotential $V_0$ normiert wird, gegen den Hopping-Parameter $t$, 
+welcher ebenfalls mit $V_0$ normiert wird. 
+Überlegen Sie sich, wie Sie mit dem Code der vorangegangenen Aufgaben 
+das Phasendiagramm erstellen können. Ihr Ergebnis sollte Abbildung \ref{fig:phase} entsprechen.
+\end{questions}
+
+\begin{figure}[hb]
+ \centering
+ \includegraphics[width = 0.75 \textwidth]{phasendiagramm-eps-converted-to.pdf}
+ \caption{Phasendiagramm Mott-Isolator - Superfluider Zustand}
+ \label{fig:phase}
+\end{figure}
+
+
+
+\end{document}
+
+
+

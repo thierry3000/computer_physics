@@ -1,0 +1,221 @@
+\documentclass[english,10pt]{newexam}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{ngerman}
+\usepackage{dsfont}
+\usepackage{bm}
+\setlength\parskip{\medskipamount}
+\setlength\parindent{0pt}
+
+\makeatletter
+\usepackage[ngerman]{babel}
+\makeatother
+\thispagestyle{headandfoot}
+\extraheadheight[1.5cm]{0cm}
+
+\firstpageheadrule
+\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  SS 2017}}
+  {\LARGE  6. \"Ubung}
+  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+\footrule
+\extrafootheight{-2cm}
+\lfoot{}
+\lfoot{{\bfseries \textsf{Info:}}
+{\tt  http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html}\\}
+\cfoot{}
+\rfoot{\thepage/\numpages}
+%\bracketedpoints 
+\boxedpoints
+%\pointsinrightmargin
+%\pointsinmargin
+\pointpoints{Punkt}{Punkte}
+%%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{mycounter}
+\setcounter{mycounter}{0}
+\newcommand{\myTitle}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{\thepoints}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\myTitlenop}[1]
+   {\addtocounter{mycounter}{0}\qformat{\large {\small \sf \textsl{\thepoints}} {\sf \normalsize \textbf{#1}}\hfill}}
+
+\newcommand{\Class}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{PrÃ€senzaufgabe}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Remark}[1]{{\large \textsf{Bemerkung:} }{\small \textsf{#1}}}
+\newcommand{\Hint}[1]{{\large \textsf{Hinweis:} }{\small \textsf{#1}}}
+\newcommand{\Bold}[1]{{\bfseries {#1}}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ket}[1]{\left| {#1}\right\rangle}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\skp}[2]{\langle {#1} | {#2}\rangle}
+\newcommand{\E}[1]{\left\langle {\hat{#1}}\right\rangle}
+\newcommand{\e}[1]{\langle {#1}\rangle}
+\newcommand{\trip}[3]{\langle {#1}|{#2}|{#3}\rangle}
+\newcommand{\Sz}{\hat S_z}
+\newcommand{\Szi}[1]{\hat S_{z #1}}
+\newcommand{\SO}{\hat{\vec{S}}}
+\newcommand{\zus}[1]{\left| #1 \right>}
+%\renewcommand{\theequation}{10.\arabic{equation}}
+\newcommand{\beqs}{\begin{eqnarray}}
+\newcommand{\eeqs}{\end{eqnarray}}
+
+%\bracketedpoints
+\boxedpoints
+%\pointsinrightmargin
+\pointsinmargin
+\pointpoints{Punkt}{Punkte}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\vspace*{-0.5cm}\hrule
+\begin{center} 
+{\bfseries \sf(Abgabe: bis zum \textit{14. Juni 2017, 16:00 Uhr}.
+Quellcode, Filme und Bilder bitte in ``/home/comphys/comphys\_ss17\_Abgabe/'' im Cip Pool ablegen.
+Der schriftliche Teil kann entweder als Pdf beigelegt oder im Postfach von Prof.~Rieger abgegeben werden.
+\\
+Unter ``/home/comphys/comphys\_ss17/exercises\_supplemental/`` finden sie die jeweilig Dateien, die 
+f\"ur die Bearbeitung hilfreich sind.
+\\
+In der Übung am 14. Juni werden die Lösungen zu Blatt 5 und 6 besprochen.
+Fragen bitte dieses Mal an bsoni@lusi.uni-sb.de }\\[.3cm]
+\end{center}
+
+
+\begin{questions}
+\vspace{0.3cm}
+
+\myTitlenop{Präsenzübungen/Einführung:}
+\question
+	Das Programm \textit{mdbasic\_0} simuliert ein mikrokanonisches Ensemble von Soft-Core-Teilchen in zwei Dimensionen mit periodischen Randbedingungen. Die Simulationsparameter werden zu Laufzeitbeginn aus der Parameterdatei \textit{mdbasic\_0.in} eingelesen. Die Einheiten sind entdimensionalisiert, d.h \(m=\sigma=\epsilon=1\):
+	\begin{minipage}{0.35\textwidth}
+	\begin{center}
+		\textbf{Lennard-Jones-Potential:}
+	\end{center}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+	\begin{equation*}
+		u(r_{ij}) = 4 \epsilon \left(\left(\frac{\sigma}{r_{ij}}\right)^{12} -  \left(\frac{\sigma}{r_{ij}}\right)^6 \right) + \epsilon \qquad r_{ij} \le r_c=2^{1/6}\sigma
+	\end{equation*}
+	\end{minipage}
+	\begin{parts}
+	%\part Die Programmdateien befinden sich unter \\
+	%\textit{/home/comphys/comphys\_ss17/exercises\_supplemental/06\_MD/}.\\ 
+	%Kopieren Sie den Ordner in Ihr Homeverzeichnis.
+	\part Öffnen Sie die Quellcodedatei \textbf{mdbasic\_0.c} und versuchen Sie die Funktionsweise grob zu überblicken. Zu dem Programm ist ebenfalls eine Parameterdatei \textbf{mdbasic\_0.in} vorhanden.
+	\part Kompilieren Sie das Programm \textbf{./compile.sh 0}.  Führen Sie das Programm anschließend aus. Die späteren Programmteile können Sie mit \textit{./compile.sh 1} und \textit{./compile.sh 2} kompilieren.
+	\part Es wurde eine Bildausgabe implementiert, die Schnappschüsse der Konfigurationen zu regelmäßigen Zeiten (alle \textit{stepSnap} Schritte) in dem Ordner \textit{moviedata} speichert. Um einen Film aus den erzeugten Bildern zu gennerieren, können Sie \textbf{./encode.sh} ausführen. Die erzeugte Videodatei \textit{output.avi} lässt sich beispielsweise mit \textbf{mplayer output.avi} wiedergeben. Bevor neue Bilder durch das Programm generiert werden, sollten alle Dateien im Ordner \textit{moviedata} gelöscht werden, falls daraus ein Film erzeugt werden soll. Ansonsten werden die allen Bilder am Ende angehangen, sofern eine führere Simulation mehr Bilder erzeugt hatte.
+	\part Die Variable \textit{rCut} beschreibt die Länge, ab der das Lennard-Jones Potenial abgeschnitten wird. Da das Programm zur Zeit Soft-Core-Teilchen simuliert, wurde \textit{rCut} genau so gewählt, dass es dem Mininum des Potentials entspricht und so der attraktive Teil weggeschnitten wurde (siehe oben). Wählen Sie ein größeres \textit{rCut}. So können Sie Aggregation erzeugen. Probieren Sie es aus!
+	\part Ändern Sie das Programm so ab, dass \textit{rCut} aus der Parameterdatei eingelesen wird.
+	\end{parts}
+\end{questions}
+\parbox{\textwidth}{
+\textbf{Aufgaben:}
+}
+\textit{(Bitte für jede Aufgabe jeweils die Quelltextdatei und die Inputdatei abgeben und ggf. Diagramme.)}
+\begin{questions}
+
+% \myTitle{Repulsive Randbedingungen}
+% \question[3]
+% 	Implementieren Sie Randbedingungen, die die Teilchen mit dem gleichen Potential abstößt, wie die Teilchen untereinander.
+% 	\begin{parts}
+% 	\part In der Headerdatei \textit{in\_proto.h} wurde bereits die Funktion \textit{void ApplyBoundaryCondWall ()} deklariert. Schreiben Sie den entsprechenden Funktionsrumpf in die Quelledatei \textit{mdbasic.c} und rufen Sie sie an einer geeigneten Stelle innerhalb der Funktion \textit{void SingleStep ()} aus.
+% 	\part Führen Sie das Programm aus und erzeugen Sie anschließend einen Film um sich zu überzeugen, dass die Erweiterung korrekt funktioniert.
+% 	\part Schreiben Sie die Funktion \textit{void ApplyGravity ()} die allen Teilchen in jedem MD-Schritt zusätzlich eine konstante Beschleunigung in positiver y-Richtung auferlegt und schauen Sie sich das Ergebnis der Simulation an.
+% 	\end{parts}
+% 	Tipp: \begin{itemize}
+%  		\item Benutzen Sie Kräfteberechnung in der Funktion \textit{void ComputeForces()} als Vorlage.
+% 		\item Die Positionen der Wände sind: \( x= \pm \frac{1}{2} \cdot \mathrm{region}.x\) und \( y= \pm \frac{1}{2} \cdot \mathrm{region}.y\).
+% 	\end{itemize}
+
+
+\myTitle{Andersen-Thermostat (\textnormal{Bitte die Dateien \textit{mdbasic\_1.c} und \textit{mdbasic\_1.in} nennen})}
+\question[4]
+	In Experimenten wird in der Regel die Temperatur festgehalten ((N,V,T)-Ensemble) und nicht die innere Energie. Um auch das kanonische Ensemble mittels MD-Simulationen zu untersuchen, bedient man sich sog. Thermostate, die das System auf die gewünschte Temperatur bringen und dort halten. In dieser Aufgabe soll das wohl einfachste Thermostat, das Andersen-Thermostat, implementiert und getestet werden. Bei dieser Methode werden im Laufe der Simulation zufällig Teilchen ausgewählt und deren Geschwindigkeitskomponenten gemäß der Wahrscheinlichkeitverteilung, die bei der gewünschten Zieltemperatur vorliegen würde, neu gesetzt. 
+	
+	\begin{parts}
+	\part[\sl 1] Es ist plausibel anzunehmen, dass die zeitliche Änderung der Temperatur \(T'(t)\) zu einer Zeit \(t\) proportional zu der Differenz zwischen der momentanen Temperatur \(T(t)\) und der Zieltemperatur \(T_z\) ist. Für diesen Fall beschreibt die folgende Differentialgleichung den Verlauf der Temperatur
+	\[
+	\frac{\mathrm{d}T(t)}{\mathrm{d}t} = - c \left(T(t) - T_z\right)\;.
+	\]
+	Lösen Sie diese DGL für den Anfangswert \(T(0) = T_0 \).
+	\part[\sl 0.5] Fügen Sie zwei Parameter (\textit{stepTherm} und \textit{targetTemp})
+	in das Programm ein und verwenden Sie auch hier die Parameterdatei, 
+	anstatt dem Parameter direkt im Programm einen Wert zuzuweisen. 
+	\textit{stepTherm} sollen bestimmen, nach wie vielen Schritten eine 
+	virtuelle Teilchenkollision vorgenommen wird und \textit{targetTemp} 
+	gibt die Zieltemperatur an.
+	\part[\sl 0.5] Schreiben Sie die Funktion \textit{void Thermalize ()},
+	die ein zufälliges Teilchen des Ensembles auswählt und setzen Sie 
+	dessen Geschwindigkeitskomponenten entsprechend einer 
+	Normalverteilung mit einer Halbwertsbreite
+	T.F. Halbwertsbreite war nicht klar in der uebung 
+	vielleicht sollte man es sigma oder so nennen?,
+	die der Quadratwurzel der Zieltemperatur entspricht, neu und rufen Sie die Funktion an einer geeigneten Stelle aus. Die Zufallsgeneratoren: \textit{RandInt(int)} und \textit{RandGauss(double)} sind bereits implementiert können ohne Weiteres verwendet werden.
+	\part[\sl 2] Überprüfen Sie nun die Lösung der DGL aus dem ersten Teil der Aufgabe, indem Sie Simulationen (z.b. mit targetTemp = 1) für mindestens drei verschiedene \textit{stepTherm} Werte durchführen und den Temperaturverlauf in geeigneter halblogarithmischer Auftragung darstellen. Bestimmen Sie  jeweils \(c\) graphisch aus ihren Daten.
+	\end{parts}
+	\Hint{In zwei Dimensionen entspricht die Temperatur in den verwendeten Einheiten genau der kinetischen Energie.}
+
+% \myTitle{Andersen-Thermostat}
+% \question[3]
+% 	In Experimenten wird in der Regel die Temperatur festgehalten ((N,V,T)-Ensemble) und nicht die Innere Energie. Um auch die kanonischen Ensemble mittels MD-Simulationen zu untersuchen, bedient man sich sog. Thermostate, die das System zu der gewünschten Temperatur hin thermalisiert. Erweitern Sie das Programm um einen sogenannten Andersen-Thermostat und benutzen Sie wieder periodische Randbedingungen.
+% 	\begin{parts}
+% 	\part Fügen Sie einen Parameter in das Programm ein, der bestimmt, nach wie vielen Steps eine virtuelle Teilchenkollision vorgenommen wird (z.B \textit{stepTherm}) und erweitern sie das Programm entsprechend. Benutzen Sie auch hier die Parameterdatei, anstatt dem Parameter direkt im Programm einen Wert zuzuweisen. 
+% 	\part Schreiben Sie die Funktion \textit{void Thermalize ()}, die ein zufälliges Teilchen des Ensembles auswählt und setzen Sie dessen Geschwindigkeitskomponenten entsprechend einer Normalverteilung mit einer Halbwertsbreite, die der Quadratwurzel der Temperatur entspricht, neu. Die Zufallsgeneratoren: \textit{RandInt(int)} und \textit{RandGauss(double)} sind bereits implementiert.
+% 	\part Stellen die sicher, dass die Funktion \textit{void Thermalize ()} nur alle \textit{stepTherm} ausgerufen wird, indem Sie den zeitlichen Verlauf der Temperatur für verschiedene \textit{stepTherm} plotten und interpretieren Sie den Verlauf.
+% 	\end{parts}
+
+\myTitle{Paarkorrelationsfunktion/Radial distribution function (Rdf) (\textnormal{\textit{mdbasic\_2.c} und \textit{mdbasic\_2.in}})}
+\question[6]
+	Ein wichtiges Hilfsmittel um Informationen über die Phase des Systems zu bekommen ist Paarkorrelationfunktion:
+\begin{equation*}
+	g(r_n)=\frac{A h_n}{\pi N_a^2 r_n \Delta r },
+\end{equation*}
+wobei:\\
+\parbox{0.4\textwidth}{
+%\begin{minipage}{1.0\textwidth}
+\begin{tabular}{ll}
+\(A\): & Systemfläche (Volumen in \(2d\))\\
+\(h_n\): & normiertes Histogramm (siehe Aufgabenteil a))\\
+\(N_a\): & Teilchenanzahl\\
+\end{tabular}}
+\parbox{0.15\textwidth}{\hspace*{1cm}}
+\parbox{0.4\textwidth}{
+\begin{flalign*}
+\Delta r &= \frac{\mbox{\scriptsize maxRangeRdf}}{\mbox{\scriptsize sizeHist}}\\
+r_n &= (n - \frac{1}{2})\Delta r\\
+\end{flalign*}}\\
+Die Rdf beschreibt die Dichteverteilung in Abhängigkeit vom Abstand eines bestimmten Teilchens.
+
+\begin{parts}
+\part[\sl 2] Berechnen Sie mit Hilfe eines Histogramms \(h_n\) die Paarkorrelationsfunktion im kanonischen Ensemble. Das Histogramm soll die Anzahl der Teilchenpaare mit einem Abstand \(r\) im Intervall \((n-1)\Delta r \le r < n \Delta r\) speichern. Beachten Sie, dass Sie dem System eine ausreichende Zeit zum äquilibrieren lassen, bevor Sie das Histogramm füllen und mitteln Sie dann über mehrere Zeiten, um eine aussagekräfige Rdf zu erhalten.
+\part[\sl 2] Geben Sie die Daten in eine Datei aus. Zum Erstellen einer Ausgabedatei können Sie genauso vorgehen, wie es für die Datei \textit{output.dat} bereits im Quellcode geschehen ist. Variieren Sie die Simulationsparameter und plotten Sie anschließend die Paarkorrelationsfunktion für die drei Aggregatzustände und zeigen Sie entsprechend, wenn keine Korrelation besteht, nur im Nahbereich und im Nah- und Fernbereich.\\
+\Hint{Für die feste Phase müssen die Teilchen aggregieren (s. Einführungsaufgabe). Begünstigt wird dieser Zustand durch hohe Dichten und niedrige Temperaturen.}
+\part[\sl 2] Für die feste Phasen ordnen sich die Teilchen entsprechend der dichtesten Kugelpackung in zwei Dimensionen. Angenommen der Abstand zum nächsten Nachbarn innerhalb dieser Kugelpackung werde als \(a\) bezeichnet: Berechnen Sie die Abstände der zweit-, dritt-, und viertnächsten Nachbarn in dieser Kugelpackung. Diese Abstände sollten auch in festen (aggregierten) Phasen anhand der Rdf gut zu erkennen sein. Überprüfen, ob die Maxima der Funktion mit Ihrer Rechnung vereinbar ist. Fertigen Sie dazu ein Diagramm an indem Ihre Rdf und Ihre Ergebisse für die Maximas eingezeichnet sind.
+\end{parts}
+\end{questions}
+
+
+\begin{questions}
+\vspace{0.3cm}
+\myTitlenop{Liste hilfreicher Makros und Variablen, die im Quellcode verwendet werden:}
+\question
+\begin{tabular}{ll}
+& \\
+\textit{nMol}: & Anzahl der Teilchen\\
+\textit{DO\_MOL}: & \textit{for(n = 0; n $<$ nMol; n ++)}\\
+\textit{mol[i].r}: & Ortsvektor des i-ten Teilchens\\
+\textit{mol[i].rv}: & Geschwindigkeisvektor des i-ten Teilchens (ra statt rv für Beschleunigung entsprechend)\\
+\textit{mol[i].r.x}: & x-Komponente des Ortes des i-ten Teilchens\\
+\textit{region.x}: & Systemlänge in x Richtung (y statt x entsprechend)\\
+\end{tabular}
+\end{questions}
+%Infos und aktuelle \"Ubungsbl\"atter finden Sie unter: http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html
+%Bei Fragen E-Mail an: andre@lusi.uni-sb.de 
+\end{document}
+
+
+

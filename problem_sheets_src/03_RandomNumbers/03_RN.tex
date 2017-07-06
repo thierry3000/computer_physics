@@ -1,0 +1,114 @@
+\documentclass[english,10pt]{newexam}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{ngerman}
+\usepackage{dsfont}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{color}
+\setlength\parskip{\medskipamount}
+\setlength\parindent{0pt}
+
+\makeatletter
+\usepackage[ngerman]{babel}
+\makeatother
+\thispagestyle{headandfoot}
+\extraheadheight[1.5cm]{0cm}
+
+\firstpageheadrule
+\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  SS 2017}}
+  {\LARGE  3. \"Ubung - Zufallszahlen}
+  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+\footrule
+\extrafootheight{-2cm}
+\lfoot{}
+\lfoot{{\bfseries \textsf{Info:}}
+{\tt  http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html}\\}
+\cfoot{}
+\rfoot{\thepage/\numpages}
+%\bracketedpoints 
+\boxedpoints
+%\pointsinrightmargin
+\pointsinmargin
+\pointpoints{Punkt}{Punkte}
+%%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{mycounter}
+\setcounter{mycounter}{0}
+\newcommand{\myTitle}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{\thepoints}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Class}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{PrÃ€senzaufgabe}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Remark}[1]{{\large \textsf{Bemerkung:} }{\small \textsf{#1}}}
+\newcommand{\Hint}[1]{{\large \textsf{Hinweis:} }{\small \textsf{#1}}}
+\newcommand{\Bold}[1]{{\bfseries {#1}}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ket}[1]{\left| {#1}\right\rangle}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\skp}[2]{\langle {#1} | {#2}\rangle}
+\newcommand{\E}[1]{\left\langle {\hat{#1}}\right\rangle}
+\newcommand{\e}[1]{\langle {#1}\rangle}
+\newcommand{\trip}[3]{\langle {#1}|{#2}|{#3}\rangle}
+\newcommand{\Sz}{\hat S_z}
+\newcommand{\Szi}[1]{\hat S_{z #1}}
+\newcommand{\SO}{\hat{\vec{S}}}
+\newcommand{\zus}[1]{\left| #1 \right>}
+%\renewcommand{\theequation}{10.\arabic{equation}}
+\newcommand{\beqs}{\begin{eqnarray}}
+\newcommand{\eeqs}{\end{eqnarray}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\vspace*{-0.5cm}\hrule
+\begin{center} 
+{\bfseries \sf(Abgabe: bis zum \textit{{\color{red} 17. Mai 2017, 16:00 Uhr}})\\
+Quellcode, Filme und Bilder bitte in ``/home/comphys/comphys\_ss17\_Abgabe/'' im Cip Pool ablegen.
+Der schriftliche Teil kann entweder als Pdf beigelegt oder im Postfach von Prof.~Rieger abgegeben werden.
+\\
+Unter ``/home/comphys/comphys\_ss17/exercises\_supplemental/`` finden sie die jeweilig Dateien, die 
+f\"ur die Bearbeitung hilfreich sind.}\\[.3cm]
+\end{center}
+
+
+\begin{questions}
+
+
+\vspace{0.3cm}
+
+
+\myTitle{Zufallszahlengeneratoren}
+\question[2,5]
+Nutzen Sie den Zufallszahlengenerator \glqq{}std::mt19937\grqq{} zum Lösen nachstehender Aufgaben: 
+\begin{parts}
+\part Schreiben Sie eine C++-Funktion "double gleichminus1bis1(int seed), welche gleichverteilte Zufallszahlen über dem Intervall $(-1;1)$ liefert. Prüfen Sie Ihren Algorithmus, indem Sie $10^9$ Samples generieren und den Mittelwert sowie die Varianz mit den analytisch berechenbaren Werten vergleichen. Erzeugen Sie außerdem ein Dichtehistogramm Ihrer Samples mit geeigneter Schrittweite und zeichnen Sie zum Vergleich die Dichtefunktion darüber.  
+\part Schreiben Sie eine C++-Funktion "double linearverteilt(int seed, double a)", welche Zufallszahlen auf dem Intervall $(0;a)$ mit der Wahrscheinlichkeitsdichte $p(x)=\frac{2}{a^2}x$ liefert. Prüfen Sie Ihren Algorithmus mit $a=2$, indem Sie $10^9$ Samples generieren  und den Mittelwert sowie die Varianz mit den analytisch berechenbaren Werten vergleichen. Erzeugen Sie außerdem ein Dichtehistogramm Ihrer Samples mit geeigneter Schrittweite und zeichnen Sie zum Vergleich die Dichtefunktion darüber.  
+%\part Schreiben Sie eine Funktion "double expverteilt(int seed, double lambda)", welche Zufallszahlen in $\mathbbm{R}^+$ mit der Wahrscheinlichkeitsdichte $p(x)=\lambda\cdot e^{-\lambda x}$ liefert. Prüfen Sie Ihren Algorithmus mit $\lambda=0.5$, indem Sie $10^9$ Samples generieren und den Mittelwert sowie die Varianz mit den analytisch berechenbaren Werten vergleichen. Erzeugen Sie außerdem ein Dichtehistogramm Ihrer Samples mit geeigneter Schrittweite und zeichnen Sie zum Vergleich die Dichtefunktion darüber.  
+\part Schreiben Sie eine C++-Funktion "double gaussverteilt(int seed, double mu, double sigma)", welche Zufallszahlen in $\mathbbm{R}$ mit der Wahrscheinlichkeitsdichte $p(x)=\frac {1}{\sigma\sqrt{2\pi}} e^{\left(-\frac {1}{2} \left(\frac{x-\mu}{\sigma}\right)^2\right)}$ liefert. Prüfen Sie Ihren Algorithmus mit $\mu=5$ und $\sigma=2$, indem Sie $10^9$ Samples generieren und den Mittelwert sowie die Varianz mit den analytisch berechenbaren Werten vergleichen. Erzeugen Sie außerdem ein Dichtehistogramm Ihrer Samples mit geeigneter Schrittweite und zeichnen Sie zum Vergleich die Dichtefunktion darüber.  
+\part Schreiben Sie eine C++-Funktion "void gleichverteiltaufKugeloberflaeche(int seed, double $\&$ x,  double $\&$ y,  double $\&$ z)'', welche gleichverteilte Zufallspunkte (x,y,z) auf der Oberfl\"ache der Einheitskugel liefert. 
+\end{parts}
+\myTitle{direct-Pi}
+\question[2,5]
+Schreiben Sie eine Funktion "double direct-Pi(unsigned long long int nr$\_$samples)", welche mit den in Vorlesung und Übung vorgestellten Methoden $\pi$ schätzt. Rufen Sie diese Funktion für die Werte nr$\_$samples=$10^2,\,10^4,\,10^6,\,10^8,$ $10^{9}$ auf und vergleichen Sie jeweils mit dem exakten Wert. Geben Sie mögliche Gründe für das Stagnieren der Konvergenz an.
+\myTitle{Markov-Pi}
+\question[2,5]
+\begin{parts}
+ \part Implementieren Sie den in der Vorlesung vorgestellten Algorithmus "double Markov-Pi(unsigned long long int nr$\_$samples)``.
+\part Vergleichen Sie die Konvergenzgeschwindigkeit sowie die Approximationsgenauigkeit mit "double direct-Pi(unsigned long long int nr$\_$samples)", indem Sie für die Samplezahlen aus Aufgabe 2 die Funktion evaluieren. 
+\end{parts}
+
+\myTitle{Volumenberechnung \`a la direct-Pi}
+\question[2,5]
+Das Verfahren aus Aufgabe 2 kann auch verwendet werden, um  Volumina zu berechnen. Betrachten Sie dazu die Funktion $f(x,y)=x^2\cdot cos(y)+y^2\cdot sin(x+y)+2$ auf der Menge $(-1;1)\times(-1;1)$. Schreiben Sie eine Funktion, welche das Volumen zwischen $(-1;1)\times(-1;1)$ und der darüberliegenden Funktionsfläche schätzt. \\
+\newline
+Anmerkung: Selbstverständlich gibt es effektivere Methoden, Flächen und Volumina zu berechnen. Wird die Dimension des betrachteten Problems jedoch sehr groß, so liefern diese Verfahren auch dort noch verlässliche Resultate, wo herkömmliche "Maßbestimmungsmethoden" bereits versagen.  
+\end{questions}
+
+Bei Fragen E-Mail an: corsa@lusi.uni-sb.de 
+\end{document}
+
+
+
+

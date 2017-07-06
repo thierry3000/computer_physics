@@ -1,0 +1,8 @@
+1c: Warum sqrt(halbwertebreite) wundert die Leute.
+
+bei aufgabe 1 muss verdeutlicht werden, dass rcut = 2^{1/6} sein muss. 
+sonst kommen die relaxationskurven nicht richtig raus.
+bei aufgabe 2 ist die berücksichtung der Randbedingung nicht unwichtig. 
+Berücksichtig man sie nicht, fällt  die Korrelationsfunktions linear ab.
+
+vorher überlegen, wofür man jeden halben Punkt vergibt.

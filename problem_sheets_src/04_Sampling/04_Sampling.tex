@@ -1,0 +1,144 @@
+\documentclass[english,10pt]{newexam}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{ngerman}
+\usepackage{dsfont}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{color}
+\setlength\parskip{\medskipamount}
+\setlength\parindent{0pt}
+
+\makeatletter
+\usepackage[ngerman]{babel}
+\makeatother
+\thispagestyle{headandfoot}
+\extraheadheight[1.5cm]{0cm}
+
+\firstpageheadrule
+\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  SS 2017}}
+  {\LARGE  4. \"Ubung - Sampling}
+  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+\footrule
+\extrafootheight{-2cm}
+\lfoot{}
+\lfoot{{\bfseries \textsf{Info:}}
+{\tt  http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html}\\}
+\cfoot{}
+\rfoot{\thepage/\numpages}
+%\bracketedpoints 
+\boxedpoints
+%\pointsinrightmargin
+\pointsinmargin
+\pointpoints{Punkt}{Punkte}
+%%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{mycounter}
+\setcounter{mycounter}{0}
+\newcommand{\myTitle}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{\thepoints}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Class}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{PrÃ€senzaufgabe}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Remark}[1]{{\large \textsf{Bemerkung:} }{\small \textsf{#1}}}
+\newcommand{\Hint}[1]{{\large \textsf{Hinweis:} }{\small \textsf{#1}}}
+\newcommand{\Bold}[1]{{\bfseries {#1}}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ket}[1]{\left| {#1}\right\rangle}
+\newcommand{\bra}[1]{\left\langle {#1} \right|}
+\newcommand{\skp}[2]{\langle {#1} | {#2}\rangle}
+\newcommand{\E}[1]{\left\langle {\hat{#1}}\right\rangle}
+\newcommand{\e}[1]{\langle {#1}\rangle}
+\newcommand{\trip}[3]{\langle {#1}|{#2}|{#3}\rangle}
+\newcommand{\Sz}{\hat S_z}
+\newcommand{\Szi}[1]{\hat S_{z #1}}
+\newcommand{\SO}{\hat{\vec{S}}}
+\newcommand{\zus}[1]{\left| #1 \right>}
+%\renewcommand{\theequation}{10.\arabic{equation}}
+\newcommand{\beqs}{\begin{eqnarray}}
+\newcommand{\eeqs}{\end{eqnarray}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\vspace*{-0.5cm}\hrule
+\begin{center} 
+{\bfseries \sf(Abgabe: bis zum \textit{{\color{red} 31. Mai 2017, 16:00 Uhr}})\\
+Quellcode, Filme und Bilder bitte in ``/home/comphys/comphys\_ss17\_Abgabe/'' im Cip Pool ablegen.
+Der schriftliche Teil kann entweder als Pdf beigelegt oder im Postfach von Prof.~Rieger abgegeben werden.
+\\
+Unter ``/home/comphys/comphys\_ss17/exercises\_supplemental/`` finden sie die jeweilig Dateien, die 
+f\"ur die Bearbeitung hilfreich sind.}\\[.3cm]
+\end{center}
+
+\begin{questions}
+
+
+\vspace{0.3cm}
+
+\myTitle{Tower Sampling}
+\question[2]
+Schreiben Sie ein Testprogramm, welches die Funktion ''int TowerSampling()'' beinhaltet. Das Tower Sampling soll Ihnen dabei helfen, 
+eine m\"ogliche Freizeitbesch\"aftigung f\"ur Ihren Samstagabend zu finden.
+Betrachten Sie dabei folgende Aktivit\"aten mit jeweils der Wahrscheinlichkeit $P$: Lernen ($P=0.02$), Freunde treffen ($P=0.35$), Kino ($P=0.1$),
+Buch lesen ($P=0.2$), Sport treiben ($P=0.05$), DVD anschauen ($P=0.15$), Kochen ($P=0.13$). W\"urfeln Sie a) 1.000 b) 1.000.000 mal eine Freizeitaktivit\"at aus und 
+\"uberzeugen Sie sich von der korrekten Arbeitsweise Ihres Testprogramms. 
+
+\myTitle{Reaktionskinetik mit Gillespie}
+\question[4]
+ Gegeben sei nachfolgendes Reaktionsschema für die fünf Spezies $A$, $B$, $C$ , $D$ und $E$: 
+\begin{itemize}
+ \item $ A + B \underset{c_{2}}{\overset{c_{1}}{\rightleftarrows}} C$
+ \item $ C + D \underset{c_{4}}{\overset{c_{3}}{\rightleftarrows}} E$
+\end{itemize}
+\begin{parts}
+\part Implementieren Sie Gillespies Algorithmus für beliebige Raten $k_1$, $k_2$, $k_3$, $k_4$ und Anfangsteilchenzahlen $N_A$, $N_B$, $N_C$, $N_D$, $N_E$.     
+\part Untersuchen Sie für $c_1=1$, $c_2=1.5$, $c_3=2$, $c_4=2.5$ die beiden Fälle  
+\begin{itemize}
+ \item[i)] $N_E=10^6$, $N_A=N_B=N_C=N_D=0$
+ \item[ii)] $N_E=10^2$, $N_A=N_B=N_C=N_D=0$
+ \end{itemize}
+Gehen Sie dabei jeweils folgendermaßen vor: Stellen Sie $n_i(t)=N_i(t)/{N_E}$ für $i\in{A,B,C,D,E}$ gemittelt über 1000 Samples graphisch dar. Was fällt Ihnen auf? \\
+Anschließend sollen nun relative ``Sample-to-Sample-Fluktuationen`` untersucht werden. Stellen Sie dazu $\Delta(t)=n^{S_1}_i(t)-n^{S_2}_i(t)$ gemittelt über 1000 Samplepaare $(S_1,S_2)$ für alle $i$ in beiden Fällen graphisch dar. Erklären Sie die Graphen.
+\end{parts}
+
+
+\myTitle{''Next-Event-Sampling`` nach Gillespie für zeitabhängige Eventdichten}
+\question[4]
+In der Vorlesung haben Sie Gillespies Algorithmus für konstante Übergangsraten $k_i$ kennengelernt, d.h. die Wahrscheinlichkeitsdichte $\rho_i(t)$ für ein isoliertes Event $i$ ist dort gegeben durch eine Exponentialverteilung mit Parameter $k_i$. Die Wahrscheinlichkeitsdichte $\rho_{next}(t)$ für das nächste Event ist gegeben durch eine Exponentialverteilung mit Parameter $k=\sum_i k_i$. Die Korrektheit des Gillespie Algorithmus knüpft nicht an diese spezielle Form der Dichten. Dies soll Ihnen mithilfe dieser Aufgabe verdeutlicht werden. \\
+Gegeben seien dazu N beliebige Wahrscheinlichkeitsdichten $\rho_i: \mathbb{R}^+_0 \rightarrow \mathbb{R}^+_0$ ($i=1,...,N$) mit zugehörigen Verteilungsfunktionen $F_i(t)$.
+\begin{parts}
+\part Zeigen Sie, dass 
+\begin{equation}
+\rho_{next}(t)=\sum_{i}\rho_i(t)\prod_{j\neq i}(1-F_i(t))
+\end{equation}
+die Wahrscheinlichkeitsdichte (in der Zeit) für das erste Event zum Zeitpunkt $t$ ist und damit  
+\begin{equation}
+\varrho(i,t)=\rho_i(t)\prod_{j\neq i}(1-F_j(t))
+\end{equation}
+die Wahrscheinlichkeitsdichte (in Eventart und Zeit) ist, dass zum Zeitpunkt $t$ das erste Event stattfindet und von Typ $i$ ist. \newpage
+\part Begründen Sie, dass nachstehender Gillespie Algorithmus korrekt Tupel (i,t) gemäß $\varrho(i,t)$ erzeugt.
+\begin{itemize}
+ \item for $(j=1..N)$ do: $\tau_j=$ random number according to $\rho_j$ 
+ \item $\tau=\text{min}\{\tau_j\}_{j=1..N}$ und $i$ zugehöriger Index 
+ \item return $(i,\tau)$
+ \end{itemize}
+\part Implementieren Sie die Routine aus Aufgabenteil b) für $N=2$ mit einer 
+exponentialverteilten Dichte $\rho_1(t)=2e^{-\frac{1}{2}t}$ 
+und der linear verteilten Dichte $\rho_2(t)=\frac{2}{a^2}t$ (auf (0,a), sonst identisch Null)
+mit a=2 (Aufgabe 1 Blatt 3). Erzeugen Sie ein Dichtehistogramm mit $10^8$ Samples für $\rho_{next}(t)$
+und zeichnen Sie die analytische Kurve darüber.
+\end{parts}
+
+
+
+\end{questions}
+
+
+Bei Fragen E-Mail an: thierry@lusi.uni-sb.de 
+\end{document}
+
+
+
+

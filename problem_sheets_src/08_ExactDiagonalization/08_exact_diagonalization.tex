@@ -1,0 +1,142 @@
+\documentclass[german,10pt,a4paper]{newexam}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{ngerman}
+\usepackage{dsfont}
+\usepackage{bm}
+\usepackage{braket}
+\usepackage{bbm}
+\usepackage{units}
+\usepackage{braket}
+
+\newcommand{\kreis}[1]{\unitlength1ex\begin{picture}(2.5,2.5)%
+\put(0.75,0.75){\circle{2.5}}\put(0.75,0.75){\makebox(0,0){#1}}\end{picture}}
+
+\setlength\parskip{\medskipamount}
+\setlength\parindent{0pt}
+
+\makeatletter
+\usepackage[ngerman]{babel}
+\makeatother
+\thispagestyle{headandfoot}
+\extraheadheight[1.5cm]{0cm}
+
+\firstpageheadrule
+\firstpageheader{{\Large \sf Computerphysik}\\{\Large \sf WS 2014/15}}
+  {{\LARGE  8. {\"U}bung}\\{}}
+  {{\Large \sf Theoretische Physik\\Universit{\"a}t des Saarlandes}\\ {\Large \sf Prof.~Dr.~{\sc Heiko~Rieger}}}
+\vspace*{0,2cm}
+\footrule
+\extrafootheight{0cm}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage/\numpages}
+%\bracketedpoints 
+\boxedpoints
+%\pointsinrightmargin
+\pointsinmargin
+\pointpoints{Punkt}{Punkte}
+%%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{mycounter}
+\setcounter{mycounter}{0}
+\newcommand{\myTitle}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{\thepoints}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\myTitleBonus}[1]
+   {\qformat{\large \textbf{*} {\small \sf [\textsl{\thepoints}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Class}[1]
+   {\addtocounter{mycounter}{1}\qformat{\large \textbf{\themycounter.} {\small \sf [\textsl{Pr{\"a}senzaufgabe}]} {\sf \normalsize \textbf{#1}}\hfill}}
+\newcommand{\Remark}[1]{{\large \textsf{Bemerkung:} }{\small \textsf{#1}}}
+\newcommand{\Hint}[1]{{\large \textsf{Hinweis:} }{\small \textsf{#1}}}
+\newcommand{\Bold}[1]{{\bfseries {#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\vspace*{-1cm}\hrule
+\begin{center} 
+{\bfseries \sf Ihre L{\"o}sung ist bis zum 11.02.2015 um 12:00 Uhr einzureichen. Legen Sie dazu Ihren Quellcode sowie die anzufertigenden Graphen im Ordner
+/home/comphys/comphys\_ws1415\_Abgabe/ im CIP-Pool der Physik ab.}\\[0.3cm]
+\end{center}
+
+Es werde eine geschlossene Spinkette mit einer geraden Anzahl $L$ an Spins betrachtet, welche durch den Heisenberg-Hamiltonoperator
+\begin{equation*}
+H=J\sum_{i=1}^{L}\vec{S}_{i}\cdot\vec{S}_{i+1}=J\sum_{i=1}^{L}\left[\dfrac{1}{2}\left(S_{i}^{+}S_{i+1}^{-}+S_{i}^{-}S_{i+1}^{+}\right)+S_{i}^{z}S_{i+1}^{z}\right]
+\end{equation*}
+beschrieben wird. Aufgrund der periodischen Randbedingungen gilt $\vec{S}_{i+L}=\vec{S}_{i}$. F{\"u}r $J>0$ liegt eine antiferromagnetische Wechselwirkung zwischen den Spins vor.\\
+Als Basisvektoren k{\"o}nnen die Vektoren
+\begin{center}
+$\ket{K}=|s_1,s_2,\dots,s_L\rangle$
+\end{center}
+gew{\"a}hlt werden, wobei $s_{i}\in\left\{-S,-S+1,\dots,S-1,S\right\}$. $S$ ist hierbei die Spinquantenzahl. Die Dimension des Hilbertraumes ergibt sich somit zu $D=\left(2S+1\right)^{L}$.\\
+Zur Numerierung der Zust{\"a}nde der Kette verschiebt man die Werte der $s_{i}$ um $S$, sodass $s_{i}\in\left\{0,1,\dots,2S\right\}$. Jedem Zustand $\ket{K}$ kann dann die Nummer
+\begin{equation*}
+K=\sum_{i=1}^{L}s_{i}M_{S}^{i-1}
+\end{equation*}
+zugeordnet werden, wobei $M_{S}=2S+1$.\\
+Die Energiel{\"u}cke zwischen dem Grundzustand und dem erstem angeregtem Zustand verschwindet f{\"u}r unendlich lange Ketten und verringert sich infolgedessen mit wachsender Systemgr{\"o}{\ss}e.
+Diese Verringerung soll im Folgenden untersucht werden.
+
+\begin{questions}
+
+\myTitle{Lanczos-Algorithmus}
+\question[5]
+Implementieren Sie in C++ den Lanczos-Algorithmus zur Berechnung der Grundzustandsenergie sowie der Energie des ersten angeregten Zustandes f{\"u}r eine durch den Heisenberg-Hamiltonoperator
+beschriebene geschlossenen Spinkette der L{\"a}nge $L$ mit Spinquantenzahl $S$. Hierbei sei $J=1.0$.
+
+\myTitle{Spin-$1/2$-Kette}
+\question[2.5]
+Berechnen Sie mithilfe des in der vorherigen Aufgabe implementierten Lanczos-Algorithmus die Grundzustandsenergie und die Energie des ersten angeregten Zustandes einer geschlossenen antiferromagnetischen
+Spin-$1/2$-Kette der L{\"a}nge $L\in\left\{8,10,12,14,16,18,20,22\right\}$. Tragen Sie sowohl $E_0$, $E_1$ als auch $\Delta E=E_{1}-E_{0}$ gegen $L$ auf.\\
+Zum Testen Ihres Programmes: Eine geschlossene Kette mit $12$ Gitterpl{\"a}tzen besitzt die Grundzustandsenergie $E_{0}=-5.38739$.
+
+\myTitle{Spin-$1$-Kette}
+\question[2.5]
+Untersuchen Sie nun die Grundzustandsenergie, die Energie des ersten angeregten Zustandes sowie die sich ergebende Energiel{\"u}cke f{\"u}r eine geschlossene antiferromagnetische Spin-$1$-Kette.
+Betrachten Sie hierzu Ketten der L{\"a}nge $L\in\left\{6,8,10,12,14,16\right\}$. Welchen Unterschied zur Spin-$1/2$-Kette stellen Sie fest?
+
+\end{questions}
+
+\newpage
+
+\textbf{Hilfe:}\\
+Der Algorithmus zur Berechnung der Tridiagonalmatrix lautet folgenderma{\ss}en:\\\\
+\textbf{Choose initial} $|r\rangle$\\
+$b_0=|||r\rangle||$\\
+$|q_0\rangle=0$\\
+$|q_1\rangle=|r\rangle/b_0$\\
+\textbf{FOR} j=1 \textbf{TO} m \textbf{DO}\\
+\hspace*{1em}$|u\rangle=\textbf{H}|q_j\rangle$\\
+\hspace*{1em}$|r\rangle=|u\rangle-b_{j-1}|q_{j-1}\rangle$\\
+\hspace*{1em}$a_j=\langle q_j|r\rangle$\\
+\hspace*{1em}$|r\rangle=|r\rangle-a_{j}|q_j\rangle$\\
+\hspace*{1em}\textbf{Reorthogonalize( $|r\rangle$ )}\\
+\hspace*{1em}$b_{j}=|||r\rangle||$\\
+\hspace*{1em}$|q_{j+1}\rangle=|r\rangle/b_j$\\
+\textbf{END FOR}\\
+
+Wichtig f{\"u}r diesen Algorithmus ist die Matrix-Vektor-Multiplikation $H|\psi\rangle$, die folgenderma{\ss}en implementiert werden kann:\\\\
+\textbf{FOR} each site $i$ \textbf{DO}\\
+\hspace*{1em}\textbf{FOR} $N1=0$ \textbf{TO} $M_{S}^{i-1}-1$ \textbf{DO}\\
+\hspace*{2em}\textbf{FOR} $N2=0$ \textbf{TO} $M_{S}^{L-i-1}-1$ \textbf{DO}\\
+\hspace*{3em}\textbf{FOR} $S1=0$ \textbf{TO} $M_S-1$ \textbf{DO}\\
+\hspace*{4em}\textbf{FOR} $S2=0$ \textbf{TO} $M_S-1$ \textbf{DO}\\
+\hspace*{5em}\textbf{FOR} $S1P=0$ \textbf{TO} $M_S-1$ \textbf{DO}\\
+\hspace*{6em}\textbf{FOR} $S2P=0$ \textbf{TO} $M_S-1$ \textbf{DO}\\
+\hspace*{7em}$K1=N1+N2\cdot M_{S}^{i+1}+S1\cdot M_{S}^{i-1}+S2\cdot M_{S}^{i}$\\
+\hspace*{7em}$K2=N1+N2\cdot M_{S}^{i+1}+S1P\cdot M_{S}^{i-1}+S2P\cdot M_{S}^{i}$\\
+\hspace*{7em}$HPSI(K2)=HPSI(K2)+H_{MAT}(S1P,S2P,S1,S2)\cdot PSI(K1)$\\
+\hspace*{6em}\textbf{END FOR}\\
+\hspace*{5em}\textbf{END FOR}\\
+\hspace*{4em}\textbf{END FOR}\\
+\hspace*{3em}\textbf{END FOR}\\
+\hspace*{2em}\textbf{END FOR}\\
+\hspace*{1em}\textbf{END FOR}\\
+\textbf{END FOR}\\\\
+Die Matrix $H_{MAT}$ bezeichnet den Teil des Hamiltonoperators, der den Spin am Gitterplatz $i$ mit dem Nachbarspin $i+1$ koppelt.
+Beachten Sie, dass f{\"u}r $i$ nahe des Randes kleine Modifikationen vonn{\"o}ten sind.
+
+\end{document}
