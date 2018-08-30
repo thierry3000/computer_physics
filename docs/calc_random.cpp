@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <gsl/gsl_rng.h>
 
-int
-main (void)
+int main (void)
 {
   const gsl_rng_type * T;
   gsl_rng * r;
