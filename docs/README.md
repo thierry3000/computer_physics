@@ -74,7 +74,8 @@ and the compilation proceeds.
 #include <stdio.h>
 #include <gsl/gsl_rng.h>
 ```
-This tells the compiler to copy the content of those to files into our example. But how does the compiler know where to look for thos files?
+This tells the compiler to copy the content of those to files into our example. But how does the compiler know where to look for those files?
+Dependent on you operating system, some default locations are scaned. For most linux distributions those locations include "/include", "/usr/include" and "/usr/local/include". The rectangular brackets (<>) are reminiscent of using the default locations. Apart from the default locations you can always add non-default locations with the option "-I" to the compiler or provide complet path in your sources. 
 
 ## linking
 
