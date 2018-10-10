@@ -1,6 +1,10 @@
-# git
-At the introductory to this course you learned how to use git and github.
-Here are the basic command again:
+# linux OS
+We assume that you are familiar with basic linux command such as
+```
+ls, cd, rm, .., etc
+```
+To obtain your latest source you can either visit the [github page](https://github.com/thierry3000/computer_physics) and hit the download button or you use git to get you on working copy of the repository. We do not have the time to explain all of it, but the following command will get the code.
+
 ```
 git clone https://github.com/thierry3000/computer_physics.git
 ```
@@ -28,7 +32,9 @@ int main (void)
   const gsl_rng_type * T;
   gsl_rng * r;
 
-  int i, n = 10;
+  const int n = 10;
+  double foo[n];
+  
   
   //standard initialization
   gsl_rng_env_setup();
@@ -37,13 +43,14 @@ int main (void)
   T = gsl_rng_default;
   r = gsl_rng_alloc (T);
 
-  for (i = 0; i < n; i++) 
-    {
-      //returns a random number
-      double u = gsl_rng_uniform (r);
-      //prints float with 5 digets
-      printf ("%.5f\n", u);
-    }
+  for (int i = 0; i < n; i++) 
+	{
+	//returns a random number
+	double u = gsl_rng_uniform (r);
+	foo[i] = u;
+	//prints float with 5 digets
+	printf ("%.5f\n", foo[i]);
+	}
 
   gsl_rng_free (r);
   //successful return
@@ -121,8 +128,33 @@ they start with "lib" and end with ".so". On an other popular
 operating system they are call ".dll" files.
 
 - [x] Try to find the files "libgsl.so" and "libgslcblas.so" on your system!
+- [x] Try to compile and run the main function within the "hello_world.cpp"
+
+# optimization and debugging
+Yet an other option of the compiler is related to the level of optimization. Without any additional flags the optimization level is "-O0". To speed up your code you can increase this level up to "O3". Applied to our recent example this would result in the command
+
+> g++ calc_random.cpp -Wall -lgsl -lgslcblas -o calc_random -O3
+
+- [x] If you have other code at hand, compare the runtime with and without the "-O3" flag.
+
+Optimization is one end of the ladder, but there is an other direction, too. Assume you are hunting for a runtime error and do not care so much about optimization, but you are more interessted in a correct execution. Then you should tell the compiler to add additional debbuging information with "-g" flag.
+
+For some reason assume we did something wrong in our hello world example (uncomment the line) and compile again with "-g" flag. Run the gnu debugger gdb with the name of you binary as argument:
+
+> gdb your-binary-name
+
+type "run" at hit enter.
+
+
+See [here](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html) and [here](https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html#Debugging-Options) for all compiler options.
 
 # python
+
+In contrast to compile your source to specific hardware, there is an other approach called interpreter based programming. This is widely use because it is very practical (Matlab and friends). 
+
+- [x] What are the pros and cons of compiler based vs. interpreter based approaches?
+
+Here we present python.
 
 # exercise 1 - ODE
 
