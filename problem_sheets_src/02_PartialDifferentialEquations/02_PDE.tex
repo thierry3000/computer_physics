@@ -1,24 +1,16 @@
-\documentclass[english,10pt]{exam}
+\documentclass{exam}
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{epsfig}
-%\usepackage{dsfont}
-\usepackage{bm}
-\setlength\parskip{\medskipamount}
-\setlength\parindent{0pt}
 
-\makeatletter
-\makeatother
-\thispagestyle{headandfoot}
 \extraheadheight[1.5cm]{0cm}
 
 \firstpageheadrule
 \firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  SS 2017}}
-  {\LARGE  2. \"Ubung}
+  {\LARGE  1. \"Ubung - ODE}
   {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+  
 \footrule
 \extrafootheight{-2cm}
 \lfoot{}
@@ -26,12 +18,11 @@
 {\tt  http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html}\\}
 \cfoot{}
 \rfoot{\thepage/\numpages}
-%\bracketedpoints 
 \boxedpoints
-%\pointsinrightmargin
 \pointsinmargin
 \pointpoints{Punkt}{Punkte}
-%%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% %%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcounter{mycounter}
 \setcounter{mycounter}{0}
 \newcommand{\myTitle}[1]
@@ -56,7 +47,7 @@
 %\renewcommand{\theequation}{10.\arabic{equation}}
 \newcommand{\beqs}{\begin{eqnarray}}
 \newcommand{\eeqs}{\end{eqnarray}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 \vspace*{-0.5cm}\hrule
@@ -77,8 +68,8 @@ Differentialgleichungssystem beschrieben:
 \begin{eqnarray}
 \label{eqn:rb}
 \frac{\partial u}{\partial t} &=& \delta_1 \Delta u + r u \left(1 - \frac{u}{w} \right) - p v \Psi(k u) \\
-\frac{\partial v}{\partial t} &=& \delta_2 \Delta v + q v \Psi(k u) - s v \notag \\
-\Psi &:=& \eta \mapsto \tfrac{\eta}{1+\eta} \notag\text{,}
+\frac{\partial v}{\partial t} &=& \delta_2 \Delta v + q v \Psi(k u) - s v \nonumber \\
+\Psi &:=& \eta \mapsto \tfrac{\eta}{1+\eta} \nonumber\text{,}
 \end{eqnarray}
 wobei $\delta_1, \delta_2, r, p, k, q, s$ positive Modellparameter sind und 
 $\Delta$ den Laplace Operator bezeichnet $\Delta = 

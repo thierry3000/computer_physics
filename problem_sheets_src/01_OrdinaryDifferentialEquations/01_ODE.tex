@@ -1,25 +1,13 @@
-\documentclass[english,10pt]{newexam}
-%\usepackage[T1]{fontenc}
+\documentclass{exam}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{epsfig}
-\usepackage{ngerman}
-\usepackage{dsfont}
-\usepackage{bm}
-\setlength\parskip{\medskipamount}
-\setlength\parindent{0pt}
 
-\makeatletter
-\usepackage[ngerman]{babel}
-\makeatother
-\thispagestyle{headandfoot}
 \extraheadheight[1.5cm]{0cm}
 
 \firstpageheadrule
 \firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  SS 2017}}
   {\LARGE  1. \"Ubung - ODE}
   {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+  
 \footrule
 \extrafootheight{-2cm}
 \lfoot{}
@@ -27,12 +15,11 @@
 {\tt  http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html}\\}
 \cfoot{}
 \rfoot{\thepage/\numpages}
-%\bracketedpoints 
 \boxedpoints
-%\pointsinrightmargin
 \pointsinmargin
 \pointpoints{Punkt}{Punkte}
-%%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% %%%%%%%%%%%%%% define newcommands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcounter{mycounter}
 \setcounter{mycounter}{0}
 \newcommand{\myTitle}[1]
@@ -57,9 +44,10 @@
 %\renewcommand{\theequation}{10.\arabic{equation}}
 \newcommand{\beqs}{\begin{eqnarray}}
 \newcommand{\eeqs}{\end{eqnarray}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+
 \vspace*{-0.5cm}\hrule
 \begin{center} 
 {\bfseries \sf(Abgabe: bis zum \textit{26. April 2017, 16:00 Uhr} \\
@@ -77,13 +65,14 @@ schriftliche Ausarbeitungen im Postfach von Prof.~Rieger, digitale Inhalte per M
 Während der Präsenzübung haben Sie das Programm ode.py kennen gelernt, dass die gewöhnlichen Differnetialgleichungen 
 \begin{eqnarray}
  \dot u &=& \phantom{-} r u - p u v\nonumber\\
- \dot v &=& - s v + q u v \label{ode1}
+ \dot v &=& - s v + q u v 
+ \label{ode1}
 \end{eqnarray}
 $(r,s,p,q>0)$ mithilfe der SciPy- Routine ``odeint'' löst.
 \begin{parts}
  \part\label{Ellipse}
 \begin{subparts}
-\subpart Zeigen Sie analytisch, dass für alle Trajektorien $u(t)$ und $v(t)$, die Gleichung \eqref{ode1} erfüllen, auch 
+\subpart Zeigen Sie analytisch, dass für alle Trajektorien $u(t)$ und $v(t)$, die Gleichung \ref{ode1} erfüllen, auch 
   $$ V(u(t),v(t))=q H(u) + p G(v)=konstant$$
  mit $ H(u)=u_s \log u - u$ und  $G(v)=v_s \log v - v$ gilt.
 \subpart Zeigen Sie schließlich analytisch, dass die Trajektorien im Phasenraum ($u(t),v(t)$) in der Nähe des Fixpuntes $(u_s=\frac{s}{q}, v_s=\frac{r}{p})$ die Ellipsengleichung $$\frac{\bar u^2}{A}+\frac{\bar v^2}{B}=1$$ erfüllen und begründen Sie warum $A, B$ positiv sind. Verwenden Sie die Koordinaten\\$(u=\bar u+u_s, v=\bar v+v_s)$ und die Entwicklung $\log\left(1+x\right)\approx x - \frac{x^2}{2}$.
@@ -104,7 +93,7 @@ $(r,s,p,q,m>0)$
 \begin{parts}
  \part Bestimmen Sie analytisch alle stationären Punkte des Systems.
  \part Setzten Sie $p=q=5, s=1/2, r=1$ und untersuchen Sie nun die stationären Punkte analytisch. Bestimmen Sie deren Art für $m=1$ und $m=2$.
- \part Implementieren Sie die Gleichungen \eqref{ode2} für allgemeine Parameter in der Funktion \texttt{GleichungODE}, um Sie mithilfe ihres Runge-Kutta-Algorithmuses zu lösen.
+ \part Implementieren Sie die Gleichungen \ref{ode2} für allgemeine Parameter in der Funktion \texttt{GleichungODE}, um Sie mithilfe ihres Runge-Kutta-Algorithmuses zu lösen.
  \part Setzen Sie von nun $p=q=5, s=1/2, r=1$. Untersuchen Sie numerisch das Verhalten des Systems im Phasenraum ($x(t),y(t)$) in Abhängigkeit von $m$. Veranschaulichen Sie die Hopf-Bifurkation mithilfe von zwei Bildern des Phasenraums und erläutern Sie.
 \end{parts}
 
@@ -112,7 +101,11 @@ $(r,s,p,q,m>0)$
 Weitere Infos finden Sie unter: http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html
 \\
 Bei Fragen E-Mail an: thierry@lusi.uni-sb.de 
+
 \end{document}
+
+
+
 
 
 
