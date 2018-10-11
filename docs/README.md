@@ -176,7 +176,11 @@ This will open an interpreter and you can directly enter your commands.
 
 ## scripting
 
-An other handy way of using python is to write scripts. 
+An other handy way of using python is to write scripts and call them by the interpreter.
+
+> python hello_world.py
+
+- [x] Try to understand the source of hello_world.py
 
 # exercise 1 - ODE
 
