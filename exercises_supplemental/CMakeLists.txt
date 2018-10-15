@@ -8,3 +8,5 @@ add_subdirectory(05_MonteCarlo/)
 add_subdirectory(06_MolecularDynamics/)
 add_subdirectory(07_QuantumMonteCarlo/)
 add_subdirectory(08_ExactDiagonalization/)
+
+add_subdirectory(random_number_tests/)
