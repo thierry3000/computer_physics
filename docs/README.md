@@ -2,33 +2,34 @@
 ## basic commands
 We assume that you are familiar with basic linux command such as
 ```
-ls, cd, rm, .., echo, mkdir, etc
+ls, cd, rm, .., echo, chmod, mkdir, etc
 ```
 Never the less, let us
 
 - [x] create a folder name "computer_physics_2018"
 - [x] create a text file with your name in that folder e.g. "Thierry_Fredrich.txt" in that folder
-- [x] write your studend id (Matrikelnummer), eMail address and type of study into the file
+- [x] write your student id (Matrikelnummer), eMail address and type of study into the file
 - [x] (secure) copy this file to the main cip server (gordon) to the folder /home/comphys/students_2018
 - [x] delete the folder and the text file
 
-To obtain your latest source you can either visit the [github page](https://github.com/thierry3000/computer_physics) and hit the download button or you use git to get you on working copy of the repository. We do not have the time to explain all of it, but the following command will get the code.
+To obtain the latest source, you can either visit the [github page](https://github.com/thierry3000/computer_physics) and hit the download button or you use a git tool to get your own working copy of the repository. We do not have the time to explain all of it, but the following line will copy the code.
 
 ```
 git clone https://github.com/thierry3000/computer_physics.git
 ```
 ## Bash scripting (skip until spare time)
-Bash is one of the languages that allows direct communication with the linux kernel that is the heart of a linux based OS. Note that there are other languages as well. All commands typed into the command line could be saved in text file which is than called bash script. We do a simple example. Run the following line in your console
+Bash is one of the languages that allows direct communication with the linux kernel that is the heart of a linux based OS. Note that there are other languages as well. All commands typed into the terminal could be saved in a text file which is than called bash script. We do a simple example. Run the following line in your console
 
 ```
 for i in {0..10}; do echo ${i}; done
 ```
-than save the line in a text file called "loop.sh". By convention we have to add and additional line in the beginning
+than save the line in a text file called "loop.sh". By convention we have to add and additional line in the beginning:
 ```
 #!/bin/bash
 ```
-this line is called shebang tells the machine how to execute interpret our commands. In this case it uses the bash.
+the shebang tells the machine the language of your commands. In this case we speak "bash".
 
+- [x] Allow execution of your text file.
 - [x] Execute your script.
 
 # compiling and linking with external libraries
@@ -43,7 +44,7 @@ This example is taken from [gnu documentation](https://www.gnu.org/software/gsl/
 
 /**
  * main is the interface from your code to 
- * the operating sytem!!!
+ * the operating system!!!
  * 
  * by convention, it returns an integer as 
  * return state.
@@ -96,7 +97,7 @@ correct to:
 
 >[thierry@dema59 docs]$ g++ calc_random.cpp -Wall -lgsl -o calc_random
 
-which gives an even longer list of error. This time they look like
+which gives an even longer list of error. This time the errors look like
 
 > /usr/lib/gcc/x86_64-pc-linux-gnu/8.1.0/../../../../lib/libgsl.so: undefined reference to `cblas_ztrsv'
 
@@ -110,7 +111,7 @@ and the compilation proceeds. Now we can execute our binary by
 > ./calc_random
 
 ## include
-2 lines of include are stated in the code above.
+2 lines of include are stated in the example above.
 
 ```
 #include <stdio.h>
@@ -125,12 +126,12 @@ Dependent on you operating system, some default locations are scanned. For most 
 
 The rectangular brackets (<>) are reminiscent of using the default locations. 
 Apart from the default locations you can always add non-default locations 
-with the option "-I" to the compiler or provide a complete path in your sources. 
+with the option "-I" to the compiler or provide a relative or absolute path on your file system. 
 
 - [x] Try to find the files "stdio.h" and "gsl_rng.h" on your system!
 
 ## linking
-Linking is different to include and therefore done at a different step.
+Linking is different to include and therefore done at a different step --- the linking procedure.
 In contrast to "include" which just copies the content of a file,
 the linking stage guides your program to locations where other 
 machine usable code could be found and directly used.
@@ -142,11 +143,12 @@ libraries which is how we call the directly usable machine code.
 - /lib
 - /usr/lib 
 - /usr/lib64
+- /usr/lib/x86_64-linux-gnu (different architectures might we present on the same file system) 
 - /usr/local/lib 
 - /usr/local/lib64
 
-On unix based systems libraries follow the naming convention that 
-they start with "lib" and end with ".so". On an other popular 
+On unix based systems, shared libraries follow the naming convention that 
+they start with "lib" and end with ".so" (we will not consider other types here). On an other popular 
 operating system they are call ".dll" files.
 
 - [x] Try to find the files "libgsl.so" and "libgslcblas.so" on your system!
@@ -161,7 +163,7 @@ Yet an other option of the compiler is related to the level of optimization. Wit
 
 Optimization is one end of the ladder, but there is an other direction, too. Assume you are hunting for a runtime error and do not care so much about optimization, but you are more interested in a correct execution. Then you should tell the compiler to add additional debugging information with "-g" flag.
 
-For some reason assume we did something wrong in our hello world example (uncomment the line) and compile again with "-g" flag. Run the gnu debugger gdb with the name of your binary as argument:
+Assume, for some reason, that we did something wrong in our hello world example (uncomment the line) and compile again with "-g" flag. Run the gnu debugger gdb with the name of your binary as argument:
 
 > gdb your-binary-name
 
@@ -172,7 +174,7 @@ See [here](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html) and [here](
 
 # python
 
-In contrast to compile your source to specific hardware, there is an other approach called interpreter based programming. This is widely used because it is very practical (Matlab and friends). 
+In contrast to compile the sources to specific hardware, there is an other approach called interpreter based programming. This is widely used  in science because it is very practical (Matlab and friends). 
 
 - [x] What are the pros and cons of compiler based vs. interpreter based approaches?
 
@@ -186,7 +188,7 @@ This will open an interpreter and you can directly enter your commands.
 
 ## scripting
 
-An other handy way of using python is to write scripts and call them by the interpreter.
+An other handy way of using python is to write scripts and hand them to the interpreter.
 
 > python hello_world.py
 
