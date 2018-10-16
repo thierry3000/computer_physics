@@ -2,8 +2,16 @@
 ## basic commands
 We assume that you are familiar with basic linux command such as
 ```
-ls, cd, rm, .., echo, etc
+ls, cd, rm, .., echo, mkdir, etc
 ```
+Never the less, let us
+
+- [x] create a folder name "computer_physics_2018"
+- [x] create a text file with your name in that folder e.g. "Thierry_Fredrich.txt" in that folder
+- [x] write your studend id (Matrikelnummer), eMail address and type of study into the file
+- [x] (secure) copy this file to the main cip server (gordon) to the folder /home/comphys/students_2018
+- [x] delete the folder and the text file
+
 To obtain your latest source you can either visit the [github page](https://github.com/thierry3000/computer_physics) and hit the download button or you use git to get you on working copy of the repository. We do not have the time to explain all of it, but the following command will get the code.
 
 ```
@@ -97,7 +105,9 @@ We add the link to cblas
 
 >[thierry@dema59 docs]$ g++ calc_random.cpp -Wall -lgsl -lgslcblas -o calc_random
 
-and the compilation proceeds.
+and the compilation proceeds. Now we can execute our binary by
+
+> ./calc_random
 
 ## include
 2 lines of include are stated in the code above.
