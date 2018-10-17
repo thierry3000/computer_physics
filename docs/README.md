@@ -2,7 +2,7 @@
 ## basic commands
 We assume that you are familiar with basic linux command such as
 ```
-ls, cd, rm, .., echo, chmod, mkdir, etc
+ls, cd, rm, .., echo, chmod, mkdir, find, etc
 ```
 Never the less, let us
 
@@ -193,6 +193,17 @@ An other handy way of using python is to write scripts and hand them to the inte
 > python hello_world.py
 
 - [x] Try to understand the source of hello_world.py
+
+## packages
+
+Please have a look at the following folder:
+
+> /usr/lib/python2.7/dist-packages
+
+- [x] What can you find there?
+- [x] What is a __init__.py file?
+
+# IDE (if time left)
 
 # exercise 1 - ODE
 
