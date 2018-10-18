@@ -193,6 +193,7 @@ An other handy way of using python is to write scripts and hand them to the inte
 > python hello_world.py
 
 - [x] Try to understand the source of hello_world.py
+- [x] Plot a sine.
 
 ## packages
 
