@@ -4,9 +4,9 @@
 \extraheadheight[1.5cm]{0cm}
 
 \firstpageheadrule
-\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  SS 2017}}
+\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  WS 2018/2019}}
   {\LARGE  1. \"Ubung - ODE}
-  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger}}}
   
 \footrule
 \extrafootheight{-2cm}
@@ -50,8 +50,7 @@
 
 \vspace*{-0.5cm}\hrule
 \begin{center} 
-{\bfseries \sf(Abgabe: bis zum \textit{26. April 2017, 16:00 Uhr} \\
-schriftliche Ausarbeitungen im Postfach von Prof.~Rieger, digitale Inhalte per Mail an thierry@lusi.uni-sb.de)}\\[.3cm]
+{\bfseries \sf(Abgabe und Besprechung am 31.10.2018 um 14:00 im CIP-Pool)}\\[.3cm]
 %{\bfseries \sf (Ihre L\"osung ist am \sl{31.10.2012, 14.15 Uhr} im Cip-Pool abzugeben. \sf)}\\[.3cm]
 \end{center}
 
@@ -68,18 +67,28 @@ Während der Präsenzübung haben Sie das Programm ode.py kennen gelernt, dass d
  \dot v &=& - s v + q u v 
  \label{ode1}
 \end{eqnarray}
-$(r,s,p,q>0)$ mithilfe der SciPy- Routine ``odeint'' löst.
+$(r,s,p,q>0)$ mithilfe der SciPy- Routine ``odeint'' löst. Gleichung \ref{ode1} besitzt einen
+elliptischen Fixpunkt bei $(u_s=\frac{s}{q}, v_s=\frac{r}{p})$.
 \begin{parts}
  \part\label{Ellipse}
 \begin{subparts}
-\subpart Zeigen Sie analytisch, dass für alle Trajektorien $u(t)$ und $v(t)$, die Gleichung \ref{ode1} erfüllen, auch 
+  \subpart Zeigen Sie analytisch, dass für alle Trajektorien $u(t)$ und $v(t)$, die Gleichung \ref{ode1} erfüllen, auch 
   $$ V(u(t),v(t))=q H(u) + p G(v)=konstant$$
- mit $ H(u)=u_s \log u - u$ und  $G(v)=v_s \log v - v$ gilt.
-\subpart Zeigen Sie schließlich analytisch, dass die Trajektorien im Phasenraum ($u(t),v(t)$) in der Nähe des Fixpuntes $(u_s=\frac{s}{q}, v_s=\frac{r}{p})$ die Ellipsengleichung $$\frac{\bar u^2}{A}+\frac{\bar v^2}{B}=1$$ erfüllen und begründen Sie warum $A, B$ positiv sind. Verwenden Sie die Koordinaten\\$(u=\bar u+u_s, v=\bar v+v_s)$ und die Entwicklung $\log\left(1+x\right)\approx x - \frac{x^2}{2}$.
+ mit $ H(u)=u_s \log u - u$ und  $G(v)=v_s \log v - v$ gilt. 
+ \subpart Zeigen Sie schließlich analytisch, dass die Trajektorien im Phasenraum ($u(t),v(t)$) in der Nähe des Fixpuntes $(u_s, v_s)$ die Ellipsengleichung $$\frac{\bar u^2}{A}+\frac{\bar v^2}{B}=1$$ erfüllen und begründen Sie warum $A, B$ positiv sind. Verwenden Sie die Koordinaten\\$(u=\bar u+u_s, v=\bar v+v_s)$ mit $\frac{\bar u}{u_s},\frac{\bar v}{v_s}\ll1$
+ und die Entwicklung $\log\left(1+x\right)\approx x - \frac{x^2}{2}$.
 \end{subparts}
  \part Fügen Sie nun an der vorbereiteten Stelle das Euler-Verfahren zum Lösen allgemeiner Gleichungen ein. Fügen Sie die Bewegungsgleichungen in der Funktion \texttt{equationODE} ein und \textbf{nicht explizit} in die Funktion \texttt{Euler}.
  \part Fügen Sie nun an der vorbereiteten Stelle das Runge-Kutta-Verfahren 4. Stufe ein. Benutzen Sie die Bewegungsgleichungen aus der Funktion \texttt{equationODE} und fügen Sie sie \textbf{nicht explizit} in die Funktion \texttt{rk} ein.
- \part Vergleichen Sie die Lösungen des Euler-Verfahrens und des Runge-Kutta-Verfahrens in der Nähe des elliptischen Fixpunktes mit dem Ergebnis aus (\ref{Ellipse}). Wählen Sie hierfür verschiedene Startwerte und variieren Sie die Größe des Zeitschrittes. Welche Größenordnung sollte man für die Größe der Zeitschritte mindestens für die drei verschiedenen Methoden (odeint, Euler und Runge-Kutta) wählen?
+ \part
+ \begin{subparts}
+   \subpart Vergleichen Sie die Lösungen des Euler-Verfahrens und des Runge-Kutta-Verfahrens in der Nähe des elliptischen Fixpunktes $(u_s,v_s)$ mit der Ellipsengleichung aus
+   (\ref{Ellipse}). Wählen Sie hierfür verschiedene Startwerte $(u_0,v_0)$ und variieren Sie die Größe des Zeitschrittes $\Delta t$.
+   \subpart Halten Sie den Startwert $(u_0,v_0)$ fest, berechnen Sie $V(t)$ aus (\ref{Ellipse}) für die unterschiedlichen Methoden und variieren Sie dabei $\Delta t$.
+   Vergleichen Sie die numerischen Ergebnisse mit dem exakten analytischen Wert.    
+ \end{subparts}
+
+   
 \end{parts}
 
 \myTitle{Hopf-Bifurkation}
@@ -93,14 +102,14 @@ $(r,s,p,q,m>0)$
 \begin{parts}
  \part Bestimmen Sie analytisch alle stationären Punkte des Systems.
  \part Setzten Sie $p=q=5, s=1/2, r=1$ und untersuchen Sie nun die stationären Punkte analytisch. Bestimmen Sie deren Art für $m=1$ und $m=2$.
- \part Implementieren Sie die Gleichungen \ref{ode2} für allgemeine Parameter in der Funktion \texttt{GleichungODE}, um Sie mithilfe ihres Runge-Kutta-Algorithmuses zu lösen.
+ \part Implementieren Sie die Gleichungen \ref{ode2} für allgemeine Parameter in der Funktion \texttt{equationODE}, um Sie mithilfe ihres Runge-Kutta-Algorithmuses zu lösen.
  \part Setzen Sie von nun $p=q=5, s=1/2, r=1$. Untersuchen Sie numerisch das Verhalten des Systems im Phasenraum ($x(t),y(t)$) in Abhängigkeit von $m$. Veranschaulichen Sie die Hopf-Bifurkation mithilfe von zwei Bildern des Phasenraums und erläutern Sie.
 \end{parts}
 
 \end{questions}
 Weitere Infos finden Sie unter: http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html
 \\
-Bei Fragen E-Mail an: thierry@lusi.uni-sb.de 
+Bei Fragen E-Mail an: a.wysocki@lusi.uni-sb.de
 
 \end{document}
 

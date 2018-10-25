@@ -7,9 +7,9 @@
 \extraheadheight[1.5cm]{0cm}
 
 \firstpageheadrule
-\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  SS 2017}}
+\firstpageheader{{\Large \sf Computerphysik}\\{\large \sf  WS 2018/2019}}
   {\LARGE  1. \"Ubung - ODE}
-  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger} und\\ \large \sf Dr.~{\sc Adam~Wysocki}}}
+  {{\Large \sf Theoretische Physik\\Universit\"at des Saarlandes}\\ {\large \sf Prof.~Dr.~{\sc Heiko~Rieger}}}
   
 \footrule
 \extrafootheight{-2cm}
@@ -52,12 +52,7 @@
 \begin{document}
 \vspace*{-0.5cm}\hrule
 \begin{center} 
-{\bfseries \sf(Abgabe: bis zum \textit{3. Mai 2017, 16:00 Uhr}.
-Quellcode, Filme und Bilder bitte in ``/home/comphys/comphys\_ss17\_Abgabe/'' im Cip Pool ablegen.
-Der schriftliche Teil kann entweder als Pdf beigelegt oder im Postfach von Prof.~Rieger abgegeben werden.
-\\
-Unter ``/home/comphys/comphys\_ss17/exercises\_supplemental/`` finden sie die jeweilig Dateien, die 
-f\"ur die Bearbeitung hilfreich sind.}\\[.3cm]
+{\bfseries \sf(Abgabe und Besprechung am 15.11.2018 um 14:00 im CIP-Pool)}\\[.3cm]
 \end{center}
 
 Ziel dieser Übung ist es eine numerische Lösung einer Variante des Räuber-Beute Modells zu berechnen.
@@ -82,7 +77,7 @@ bezeichnet.
 
 Zur numerischen Lösung diskretisieren wir das Simulationsgebiet durch ein regelmäßiges Gitter mit
 Gitterkonstante $h$. Das bedeutet, eine Funktion $f(x, y)$ ist durch ihre Werte an den Gitterplätzen
-$f(i h, j h) = f_{i,j}$ eindeutig bestimmt, wobei $i,j = 0\ ..\ L/h$. Es läßt sich zeigen, daß die
+$f(i h, j h) = f_{i,j}$ eindeutig bestimmt, wobei $i,j = 0,\dots,L/h$. Es läßt sich zeigen, daß die
 Anwendung des Laplace Operators folgendermaßen approximiert werden kann:
 \begin{equation}
 \label{eqn:dlaplacian}
@@ -91,9 +86,8 @@ Anwendung des Laplace Operators folgendermaßen approximiert werden kann:
 wobei $\Delta_h$ den diskreten Laplace Operator bezeichnet.
 Die Randbedingungen benötigen dabei spezielle Behandlung. Betrachten wir zunächst den linken Rand, und
 stellen uns vor es existieren noch Gitterpunkte für $i = -1$. Wegen der Randbedingung, gilt dann an
-jedem Platz $(0,j)$: $\partial f/\partial x \approx (f_{0,j} - f_{-1,j})/h^2 = 0$. Damit läßt sich
-der Funktionswert an dem gedachten Punkt $f_{-1,j}$, sowie ein $f_{i,j}$ aus GL. (\ref{eqn:dlaplacian})
-eleminieren. Analoges gilt für die anderen Ränder.
+jedem Platz $(0,j)$: $\partial f/\partial x \approx (f_{1,j} - f_{-1,j})/2h = 0$. Damit läßt sich $f_{-1,j}$
+aus $(\Delta_h f)_{0,j}$ eleminieren. Analoges gilt für die anderen Ränder.
 
 Die Zeit diskretisieren wir in konstante Schritte der Länge $\tau$ und schreiben
 für eine Funktion der Zeit am $n$-ten Zeitschritt $f(n \tau) = f^n$. Die zeitliche Ableitung diskretisieren
@@ -158,7 +152,7 @@ Erzeugen Sie dann aus den Datendateien eine Bilderserie und daraus wiederum ein 
 Spiralwellen zu sehen sein.
 \end{questions}
 Infos und aktuelle \"Ubungsbl\"atter finden Sie unter: http://www.uni-saarland.de/fak7/rieger/homepage/teaching.html
-Bei Fragen E-Mail an: thierry@lusi.uni-sb.de
+Bei Fragen E-Mail an: a.wysocki@lusi.uni-sb.de
 \end{document}
 
 
