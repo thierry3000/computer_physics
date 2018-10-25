@@ -1,5 +1,1 @@
-mencoder \
-	"mf://*.png" -mf fps=15 \
-	-o ausgabevideo.avi \
-	-ovc lavc \
-	-lavcopts vcodec=mpeg4:vbitrate=8000
+ffmpeg -r 20 -f image2 -s 1920x1080 -i "data/pred-prey-pde-testrun.dat-%03d.png" -vcodec libx264 -crf 25 -pix_fmt yuv420p pred_prey_movie.mp4
