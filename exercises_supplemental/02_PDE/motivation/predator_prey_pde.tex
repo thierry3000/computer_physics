@@ -35,21 +35,21 @@
 \frac{\partial v}{\partial t} &=& \delta_2 \Delta v + q v \Psi(k u) - s v \notag \\
 \Psi &:=& \eta \mapsto \tfrac{\eta}{1+\eta} \notag
 \end{eqnarray*}
-%\vspace{5pt}
+
 \begin{center}
 \begin{tabular}{cc}
  Räuber $v(t)$ & Beute $u(t)$\\ 
- \includegraphics[height=2cm]{img/Hecht.jpg} & \includegraphics[height=2cm]{img/Karpfen.jpg}\\ 
- Hecht & Karpfen 
+ \includegraphics[height=2cm]{../../01_OrdinaryDifferentialEquations/motivation/img/{220px-Vulpes_vulpes_laying_in_snow}.jpg} & \includegraphics[height=2cm]{../../01_OrdinaryDifferentialEquations/motivation/img/Oryctolagus_cuniculus_Tasmania_2.jpg}\\ 
+ Fuchs & Hase 
 \end{tabular}
-%bb=14 14 126 84, %,bb=14 14 399 180
 \end{center}
 \begin{flushright}
- in einem großen See
+ in einem kleinen Wald
 \end{flushright}
-% \begin{flushright}
-% \scriptsize{Bilder: Wikipedia}
-% \end{flushright}
+\scriptsize{sources:\\}
+\scriptsize{https://en.wikipedia.org/wiki/File:Oryctolagus\_cuniculus\_Tasmania\_2.jpg}
+\scriptsize{https://en.wikipedia.org/wiki/File:Vulpes\_vulpes\_laying\_in\_snow.jpg}
+
 }
 
 
@@ -178,11 +178,11 @@ durch ``Geisterpunkte'' oder Fallunterscheidung.
 }
 
 
-\begin{frame}{Speicherlayout}
-\begin{center}
-\includegraphics[scale=0.5]{img/speicher2.pdf}
-\end{center}
-\end{frame}
+% \begin{frame}{Speicherlayout}
+% \begin{center}
+% \includegraphics[scale=0.5]{img/speicher2.pdf}
+% \end{center}
+% \end{frame}
 
 
 
@@ -281,38 +281,34 @@ v_{i,j}^{n+1}  &=& v_{i,j}^n + &\tau \left[ \delta_2 (\Delta_h v^n)_{i,j} + q v^
 % 
 % \lstset{language=sh,backgroundcolor=\color{lbcolor}}
 % 
-% \begin{frame}[fragile]
-% \textbf{Bilderreihe}
-% plot.py erzeugt png Bilder aus einer Reihe von .dat Dateien.
-% \begin{lstlisting}
-% $./plot.py ./results/testrun*.dat
-% \end{lstlisting}
-% \vspace{3pt}
-% \textbf{Verwendung von mencoder} (makemovie.sh)
-% \begin{lstlisting}
-% mencoder \
-%   "mf://*.png" -mf fps=15 \
-%   -o ausgabevideo.avi \
-%   -ovc lavc \
-%   -lavcopts vcodec=mpeg4:vbitrate=8000
-% \end{lstlisting}
-% 
-% \begin{lstlisting}
-% $cd results
-% $sh ../makemovie.sh
-% $mplayer ausgabevideo.avi
-% \end{lstlisting}
-% \end{frame}
+\begin{frame}[fragile]
+\textbf{Bilderreihe}
+plot.py erzeugt png Bilder aus einer Reihe von .dat Dateien.
+\begin{lstlisting}
+$./plot.py ./results/testrun*.dat
+\end{lstlisting}
+\vspace{3pt}
+\textbf{Verwendung von mencoder} (makemovie.sh)
+\begin{lstlisting}
+ffmpeg -r 20 -f image2 -s 1920x1080 -i "data/pred-prey-pde-testrun.dat-%03d.png" -vcodec libx264 -crf 25 -pix_fmt yuv420p pred_prey_movie.mp4
+\end{lstlisting}
+
+\begin{lstlisting}
+$cd data
+$sh ../makemovie.sh
+$mplayer pred_prey_movie.mp4
+\end{lstlisting}
+\end{frame}
 
 
-% \frame
-% {
-%   \frametitle{erste Testläufe}
-% \textcolor{blue} {Erzeugen sie ein Video mithilfe von plot.py.}\\
-% \textcolor{blue} {Erzeugen sie ein Bild mit plot.sh.}\newline\newline
-% $$\frac{2 D \Delta t}{\left(\Delta x\right)^2}\leq 1$$
-% \textcolor{blue} {Wie sehen die numerischen Lösungen aus, wenn dieses Kriterium nicht erfüllt ist?}
-% }
+\frame
+{
+  \frametitle{erste Testläufe}
+\textcolor{blue} {Erzeugen sie ein Video mithilfe von plot.py.}\\
+\textcolor{blue} {Erzeugen sie ein Bild mit plot.sh.}\newline\newline
+$$\frac{2 D \Delta t}{\left(\Delta x\right)^2}\leq 1$$
+\textcolor{blue} {Wie sehen die numerischen Lösungen aus, wenn dieses Kriterium nicht erfüllt ist?}
+}
 
 
 
